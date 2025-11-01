@@ -1,18 +1,14 @@
-import { useState } from 'react';
-
 import './App.css';
+import RandomActivity from 'components/RandomActivity/RandomActivity.tsx';
 
 function App() {
-  const [count, setCount] = useState(0);
-  
   return (
     <>
-      <div>
+      <div style={{ margin: '15px 0' }}>
         hello world
       </div>
-      <button onClick={() => setCount((count: number) => count + 1)}>
-        count is {count}
-      </button>
+      
+      <RandomActivity/>
     </>
   );
 }
