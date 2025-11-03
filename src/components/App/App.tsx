@@ -1,14 +1,18 @@
 import './App.css';
 import RandomActivity from 'components/RandomActivity/RandomActivity.tsx';
+import FilterByType from 'components/FilterByType/FilterByType.tsx';
 
 function App() {
   return (
     <>
-      <div style={{ margin: '15px 0' }}>
-        hello world
-      </div>
+      <h1 style={{ fontSize: '32px' }}>
+        If I'm Bored
+      </h1>
       
       <RandomActivity/>
+      <br/>
+      
+      <FilterByType/>
     </>
   );
 }

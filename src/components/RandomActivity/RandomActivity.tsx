@@ -8,7 +8,6 @@ const RandomActivity = () => {
   
   const getRandomActivity = useCallback(async (): Promise<void> => {
     const response = await axios.get(API_URL);
-    console.log(response.data);
     
     setActivity(response.data?.activity ?? '-');
   }, []);
@@ -18,7 +17,9 @@ const RandomActivity = () => {
   }, [getRandomActivity]);
   
   return (
-    <>
+    <fieldset>
+      <legend>Random Activity</legend>
+      
       <div style={{ border: '1px solid red', padding: '10px' }}>
         {activity}
       </div>
@@ -29,7 +30,7 @@ const RandomActivity = () => {
       >
         Get another idea
       </button>
-    </>
+    </fieldset>
   );
 };
 
