@@ -1,6 +1,7 @@
 import './App.css';
 import RandomActivity from 'components/RandomActivity/RandomActivity.tsx';
 import FilterByType from 'components/FilterByType/FilterByType.tsx';
+import FilterByParticipants from 'components/FilterByParticipants/FilterByParticipants.tsx';
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
       <br/>
       
       <FilterByType/>
+      <br/>
+      
+      <FilterByParticipants/>
     </>
   );
 }
