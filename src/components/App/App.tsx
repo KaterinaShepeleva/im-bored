@@ -2,6 +2,8 @@ import './App.css';
 import RandomActivity from 'components/RandomActivity/RandomActivity.tsx';
 import FilterByType from 'components/FilterByType/FilterByType.tsx';
 import FilterByParticipants from 'components/FilterByParticipants/FilterByParticipants.tsx';
+import FilterByAccessibility from 'components/FilterByAccessibility/FilterByAccessibility.tsx';
+import FilterByAccessibilityRange from 'components/FilterByAccessibilityRange/FilterByAccessibilityRange.tsx';
 
 function App() {
   return (
@@ -17,6 +19,12 @@ function App() {
       <br/>
       
       <FilterByParticipants/>
+      <br/>
+      
+      <FilterByAccessibility/>
+      <br/>
+      
+      <FilterByAccessibilityRange/>
     </>
   );
 }
