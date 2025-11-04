@@ -1,9 +1,11 @@
 import './App.css';
-import RandomActivity from 'components/RandomActivity/RandomActivity.tsx';
 import FilterByType from 'components/FilterByType/FilterByType.tsx';
 import FilterByParticipants from 'components/FilterByParticipants/FilterByParticipants.tsx';
 import FilterByAccessibility from 'components/FilterByAccessibility/FilterByAccessibility.tsx';
-import FilterByAccessibilityRange from 'components/FilterByAccessibilityRange/FilterByAccessibilityRange.tsx';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 function App() {
   return (
@@ -12,9 +14,6 @@ function App() {
         If I'm Bored
       </h1>
       
-      <RandomActivity/>
-      <br/>
-      
       <FilterByType/>
       <br/>
       
@@ -22,9 +21,26 @@ function App() {
       <br/>
       
       <FilterByAccessibility/>
-      <br/>
       
-      <FilterByAccessibilityRange/>
+      <Button
+        variant="contained"
+        onClick={() => false}
+        sx={{ m: '20px 0 10px' }}
+      >
+        Get another idea
+      </Button>
+      
+      <Box sx={{ m: '10px 0' }}>
+        <Paper
+          square={true}
+          elevation={2}
+          sx={{ p: '15px' }}
+        >
+          <Typography variant="body2">
+            {'activity'}
+          </Typography>
+        </Paper>
+      </Box>
     </>
   );
 }

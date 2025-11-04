@@ -95,13 +95,13 @@ export const UiFilterActivityItems: UiFilterActivityItem[] = [
   },
 ];
 
-export type UiParticipantGroup = {
+export type UiChipGroup = {
   id: number,
   label: string,
   url: string,
 }
 
-export const UiParticipantGroups: UiParticipantGroup[] = [
+export const UiParticipantGroups: UiChipGroup[] = [
   {
     id: 0,
     label: 'Any',
@@ -129,3 +129,31 @@ export const UiParticipantGroups: UiParticipantGroup[] = [
     url: 'participants=5&participants=8',
   },
 ];
+
+export const UiAccessibilityGroups: UiChipGroup[] = [
+  {
+    id: 0,
+    label: 'Any',
+    url: '',
+  },
+  {
+    id: 1,
+    label: 'Easy',
+    url: 'minaccessibility=0&maxaccessibility=0.3',
+  },
+  {
+    id: 2,
+    label: 'Medium',
+    url: 'minaccessibility=0.4&maxaccessibility=0.6',
+  },
+  {
+    id: 3,
+    label: 'Challenging',
+    url: 'minaccessibility=0.7&maxaccessibility=0.8',
+  },
+  {
+    id: 4,
+    label: 'Hard',
+    url: 'minaccessibility=0.9&maxaccessibility=1',
+  },
+]
