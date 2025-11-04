@@ -1,14 +1,33 @@
 import { useState } from 'react';
 import axios from 'axios';
+import Button from '@mui/material/Button';
+
 import { API_URL } from 'src/constants.ts';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+
+const initial = '—';
+
+const MIN = 0.1;
+const MAX = 1;
+const marks = [...Array(MAX * 10).keys()].map(item => ({
+  value: (item + 1) / 10,
+  label: '',
+}));
 
 const FilterByAccessibility = () => {
-  const [activity, setActivity] = useState<string>('???');
+  const [activity, setActivity] = useState<string>(initial);
   const [accessibility, setAccessibility] = useState<number>(0.1);
+  
+  const handleChange = (_: Event, newValue: number) => {
+    setAccessibility(newValue);
+  };
   
   const getActivityByAccessibilityValue = async (): Promise<void> => {
     const response = await axios.get(`${API_URL}?accessibility=${accessibility}`);
-    let activity = '???';
+    let activity = initial;
     
     // TODO: save data.error as content error (in separate variable) and change its displayed style
     if (response.data?.activity) {
@@ -24,37 +43,52 @@ const FilterByAccessibility = () => {
     <fieldset>
       <legend>Filter By Accessibility Value</legend>
       
-      <div>
-        <input
-          type="range"
-          id="accessibility-value"
-          min="0.1"
-          max="1"
-          step="0.1"
+      <Box sx={{ width: 250, ml: '10px' }}>
+        <Slider
+          min={MIN}
+          max={MAX}
+          marks={marks}
+          step={0.1}
           value={accessibility}
-          onChange={(e) => setAccessibility(Number(e.target.value))}
+          valueLabelDisplay="auto"
+          onChange={handleChange}
         />
-        <label
-          htmlFor="accessibility-value"
-          style={{ marginLeft: '8px' }}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '-10px' }}>
+          <Typography
+            variant="body2"
+            onClick={() => setAccessibility(MIN)}
+            sx={{ cursor: 'pointer' }}
+          >
+            {MIN} min
+          </Typography>
+          <Typography
+            variant="body2"
+            onClick={() => setAccessibility(MAX)}
+            sx={{ cursor: 'pointer' }}
+          >
+            {MAX} max
+          </Typography>
+        </Box>
+      </Box>
+      
+      <Box sx={{ m: '10px 0' }}>
+        <Paper
+          square={true}
+          elevation={2}
+          sx={{ p: '15px' }}
         >
-          {accessibility}
-        </label>
-      </div>
+          <Typography variant="body2">
+            {activity}
+          </Typography>
+        </Paper>
+      </Box>
       
-      {activity?.length > 0 && (
-        <div style={{ border: '1px solid red', padding: '10px', margin: '10px 0' }}>
-          {activity}
-        </div>
-      )}
-      
-      <button
-        type="button"
-        style={{ marginBottom: '10px' }}
+      <Button
+        variant="outlined"
         onClick={getActivityByAccessibilityValue}
       >
         Get Activity By Accessibility Value
-      </button>
+      </Button>
     </fieldset>
   );
 };

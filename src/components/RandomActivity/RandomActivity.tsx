@@ -1,7 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import Button from '@mui/material/Button';
 
 import { API_URL } from 'src/constants.ts';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 const RandomActivity = () => {
   const [activity, setActivity] = useState('');
@@ -20,16 +24,24 @@ const RandomActivity = () => {
     <fieldset>
       <legend>Random Activity</legend>
       
-      <div style={{ border: '1px solid red', padding: '10px' }}>
-        {activity}
-      </div>
-      <button
-        type="button"
-        style={{ margin: '10px 0' }}
+      <Box sx={{ m: '10px 0' }}>
+        <Paper
+          square={true}
+          elevation={2}
+          sx={{ p: '15px' }}
+        >
+          <Typography variant="body2">
+            {activity}
+          </Typography>
+        </Paper>
+      </Box>
+      
+      <Button
+        variant="contained"
         onClick={getRandomActivity}
       >
         Get another idea
-      </button>
+      </Button>
     </fieldset>
   );
 };
