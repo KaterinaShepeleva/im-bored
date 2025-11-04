@@ -16,7 +16,7 @@ export type ActivityItem = {
   /**
    * Type of the activity
    */
-  type: string,
+  type: ActivityType,
   /**
    * The number of people that this activity could involve.
    * [0, n]
@@ -30,6 +30,7 @@ export type ActivityItem = {
 }
 
 export enum ActivityType {
+  Any = '',
   Education = 'education',
   Recreational = 'recreational',
   Social = 'social',
@@ -47,49 +48,55 @@ export type UiFilterActivityItem = {
   value: ActivityType,
 }
 
+// TODO: generate UiFilterActivityItems, not hardcode
 export const UiFilterActivityItems: UiFilterActivityItem[] = [
   {
     id: 0,
+    name: '',
+    value: ActivityType.Any,
+  },
+  {
+    id: 1,
     name: 'Education',
     value: ActivityType.Education,
   },
   {
-    id: 1,
+    id: 2,
     name: 'Recreational',
     value: ActivityType.Recreational,
   },
   {
-    id: 2,
+    id: 3,
     name: 'Social',
     value: ActivityType.Social,
   },
   {
-    id: 3,
+    id: 4,
     name: 'Hobby & Craft',
     value: ActivityType.Diy,
   },
   {
-    id: 4,
+    id: 5,
     name: 'Charity',
     value: ActivityType.Charity,
   },
   {
-    id: 5,
+    id: 6,
     name: 'Cooking',
     value: ActivityType.Cooking,
   },
   {
-    id: 6,
+    id: 7,
     name: 'Relaxation',
     value: ActivityType.Relaxation,
   },
   {
-    id: 7,
+    id: 8,
     name: 'Music',
     value: ActivityType.Music,
   },
   {
-    id: 8,
+    id: 9,
     name: 'Busywork',
     value: ActivityType.Busywork,
   },
@@ -130,30 +137,38 @@ export const UiParticipantGroups: UiChipGroup[] = [
   },
 ];
 
+export const AccessibilityLabel = {
+  any: 'Any',
+  easy: 'Easy',
+  medium: 'Medium',
+  challenging: 'Challenging',
+  hard: 'Hard',
+}
+
 export const UiAccessibilityGroups: UiChipGroup[] = [
   {
     id: 0,
-    label: 'Any',
+    label: AccessibilityLabel.any,
     url: '',
   },
   {
     id: 1,
-    label: 'Easy',
+    label: AccessibilityLabel.easy,
     url: 'minaccessibility=0&maxaccessibility=0.3',
   },
   {
     id: 2,
-    label: 'Medium',
+    label: AccessibilityLabel.medium,
     url: 'minaccessibility=0.4&maxaccessibility=0.6',
   },
   {
     id: 3,
-    label: 'Challenging',
+    label: AccessibilityLabel.challenging,
     url: 'minaccessibility=0.7&maxaccessibility=0.8',
   },
   {
     id: 4,
-    label: 'Hard',
+    label: AccessibilityLabel.hard,
     url: 'minaccessibility=0.9&maxaccessibility=1',
   },
 ]

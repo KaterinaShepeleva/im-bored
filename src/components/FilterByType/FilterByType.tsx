@@ -9,28 +9,12 @@ import {
   UiFilterActivityItems,
 } from 'src/constants.ts';
 
-// const initial = '—';
-
 const FilterByType = () => {
-  // const [activity, setActivity] = useState<string>(initial);
   const [selectedType, setSelectedType] = useState<string>('');
   
   const handleChange = (event: SelectChangeEvent) => {
     setSelectedType(event.target.value);
   };
-  
-  /*
-  const getActivityByType = async (): Promise<void> => {
-    if (!selectedType) {
-      setActivity(initial);
-      return;
-    }
-    
-    const response = await axios.get(`${API_URL}?type=${selectedType}`);
-    
-    setActivity(response.data?.activity ?? initial);
-  }
-   */
   
   return (
     <div>
@@ -46,16 +30,13 @@ const FilterByType = () => {
           value={selectedType}
           onChange={handleChange}
         >
-          <MenuItem value="">
-            <i>Activity Type</i>
-          </MenuItem>
-          
           {UiFilterActivityItems.map((item: UiFilterActivityItem) => (
             <MenuItem
               key={item.id}
               value={item.value}
             >
-              {item.name}
+              {item.value.length === 0 && <i>Activity Type</i>}
+              {item.value.length > 0 && item.name}
             </MenuItem>
           ))}
         </Select>

@@ -5,11 +5,7 @@ import Chip from '@mui/material/Chip';
 
 import { UiParticipantGroups } from 'src/constants.ts';
 
-// const initial = '—';
-
 const FilterByParticipants = () => {
-  // const [activity, setActivity] = useState<string>(initial);
-  // const [activityParticipants, setActivityParticipants] = useState<number>(1);
   const [groupIndex, setGroupIndex] = useState<number>(UiParticipantGroups[0].id);
   
   const handleClick = (newIndex: number) => {
@@ -19,24 +15,6 @@ const FilterByParticipants = () => {
     
     setGroupIndex(newIndex);
   };
-  
-  /*
-  const getActivityByParticipants = async (): Promise<void> => {
-    const response = await axios.get(`${API_URL}?${UiParticipantGroups[groupIndex].url}`);
-    const participants = 1;
-    let activity = initial;
-    
-    // TODO: save data.error as content error (in separate variable) and change its displayed style
-    if (response.data?.activity) {
-      activity = response.data.activity;
-    } else if (response.data?.error) {
-      activity = response.data.error;
-    }
-    
-    setActivity(activity);
-    setActivityParticipants(response.data?.participants ?? participants);
-  };
-   */
   
   return (
     <div>
