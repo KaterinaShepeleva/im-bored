@@ -94,3 +94,38 @@ export const UiFilterActivityItems: UiFilterActivityItem[] = [
     value: ActivityType.Busywork,
   },
 ];
+
+export type UiParticipantGroup = {
+  id: number,
+  label: string,
+  url: string,
+}
+
+export const UiParticipantGroups: UiParticipantGroup[] = [
+  {
+    id: 0,
+    label: 'Any',
+    url: '',
+  },
+  {
+    id: 1,
+    label: '1',
+    url: 'participants=1',
+  },
+  {
+    id: 2,
+    label: '2',
+    url: 'participants=2',
+  },
+  {
+    id: 3,
+    label: '3–4',
+    url: 'participants=3&participants=4',
+  },
+  {
+    id: 4,
+    label: '5+',
+    // No activities for 6 or 7 participants
+    url: 'participants=5&participants=8',
+  },
+];
