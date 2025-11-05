@@ -24,6 +24,7 @@ class ActivityStore {
   
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
+    void this.fetchActivity();
   }
   
   async fetchActivity(): Promise<void> {
@@ -34,7 +35,7 @@ class ActivityStore {
       
       // TODO: response validation
       const data: ActivityItem = response.data;
-      console.log('response data', response.data)
+      console.log('response data', response.data);
       
       runInAction(() => {
         this.key = data.key;
@@ -42,13 +43,13 @@ class ActivityStore {
         this.type = data.type as ActivityType;
         this.participants = data.participants;
         this.accessibility = data.accessibility;
-      })
+      });
       
       // if (response.error) {
       //   this.activityError = response.error;
       // }
     } catch (error) {
-        console.error('Failed to fetch activity:', error);
+      console.error('Failed to fetch activity:', error);
     } finally {
       this.isLoading = false;
     }

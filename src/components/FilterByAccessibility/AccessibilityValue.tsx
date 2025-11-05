@@ -3,6 +3,10 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
+/*
+TODO: step must be 0.05 (not 0.1), because there is activity 8631548
+ "Create a compost pile" with accessibility 0.15
+ */
 const MIN = 0.1;
 const MAX = 1;
 const marks = [...Array(MAX * 10).keys()].map(item => ({
