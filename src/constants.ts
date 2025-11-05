@@ -105,35 +105,35 @@ export const UiFilterActivityItems: UiFilterActivityItem[] = [
 export type UiChipGroup = {
   id: number,
   label: string,
-  url: string,
+  value: number[] | null,
 }
 
 export const UiParticipantGroups: UiChipGroup[] = [
   {
     id: 0,
     label: 'Any',
-    url: '',
+    value: null,
   },
   {
     id: 1,
     label: '1',
-    url: 'participants=1',
+    value: [1],
   },
   {
     id: 2,
     label: '2',
-    url: 'participants=2',
+    value: [2],
   },
   {
     id: 3,
     label: '3–4',
-    url: 'participants=3&participants=4',
+    value: [3, 4],
   },
   {
     id: 4,
     label: '5+',
     // No activities for 6 or 7 participants
-    url: 'participants=5&participants=8',
+    value: [5, 8],
   },
 ];
 
@@ -149,26 +149,26 @@ export const UiAccessibilityGroups: UiChipGroup[] = [
   {
     id: 0,
     label: AccessibilityLabel.any,
-    url: '',
+    value: null,
   },
   {
     id: 1,
     label: AccessibilityLabel.easy,
-    url: 'minaccessibility=0&maxaccessibility=0.3',
+    value: [0, 0.3],
   },
   {
     id: 2,
     label: AccessibilityLabel.medium,
-    url: 'minaccessibility=0.4&maxaccessibility=0.6',
+    value: [0.4, 0.6],
   },
   {
     id: 3,
     label: AccessibilityLabel.challenging,
-    url: 'minaccessibility=0.7&maxaccessibility=0.8',
+    value: [0.7, 0.8],
   },
   {
     id: 4,
     label: AccessibilityLabel.hard,
-    url: 'minaccessibility=0.9&maxaccessibility=1',
+    value: [0.9, 1],
   },
 ]

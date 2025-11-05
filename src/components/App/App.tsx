@@ -1,14 +1,15 @@
-import { useCallback, useEffect, useState } from 'react';
-import axios from 'axios';
+// import { useCallback, useEffect, useState } from 'react';
+// import axios from 'axios';
 import Button from '@mui/material/Button';
 
 import './App.css';
-import { type ActivityItem, ActivityType, API_URL } from 'src/constants.ts';
+import { activityStore } from 'store/ActivityStore.ts';
 import ActivityCard from 'components/ActivityCard/ActivityCard.tsx';
 import FilterByType from 'components/FilterByType/FilterByType.tsx';
 import FilterByParticipants from 'components/FilterByParticipants/FilterByParticipants.tsx';
 import FilterByAccessibility from 'components/FilterByAccessibility/FilterByAccessibility.tsx';
 
+/*
 const initialState: ActivityItem = {
   key: '1000000',
   activity: '—',
@@ -16,10 +17,13 @@ const initialState: ActivityItem = {
   participants: 1,
   accessibility: 0.1,
 }
+ */
 
 function App() {
-  const [activity, setActivity] = useState<ActivityItem>(initialState);
+  // const [activity, setActivity] = useState<ActivityItem>(initialState);
+  const { fetchActivity } = activityStore;
   
+  /*
   const getRandomActivity = useCallback(async (): Promise<void> => {
     const response = await axios.get(API_URL);
     console.log(response.data);
@@ -30,6 +34,7 @@ function App() {
   useEffect(() => {
     getRandomActivity().catch(console.error);
   }, [getRandomActivity]);
+   */
   
   return (
     <>
@@ -47,13 +52,13 @@ function App() {
       
       <Button
         variant="contained"
-        onClick={() => false}
+        onClick={fetchActivity}
         sx={{ m: '20px 0 10px' }}
       >
         Get another idea
       </Button>
       
-      <ActivityCard data={activity}/>
+      <ActivityCard/>
     </>
   );
 }
