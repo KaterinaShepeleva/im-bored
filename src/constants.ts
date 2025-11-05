@@ -16,7 +16,7 @@ export type ActivityItem = {
   /**
    * Type of the activity
    */
-  type: string,
+  type: ActivityType,
   /**
    * The number of people that this activity could involve.
    * [0, n]
@@ -30,6 +30,7 @@ export type ActivityItem = {
 }
 
 export enum ActivityType {
+  Any = '',
   Education = 'education',
   Recreational = 'recreational',
   Social = 'social',
@@ -47,50 +48,127 @@ export type UiFilterActivityItem = {
   value: ActivityType,
 }
 
+// TODO: generate UiFilterActivityItems, not hardcode
 export const UiFilterActivityItems: UiFilterActivityItem[] = [
   {
     id: 0,
+    name: '',
+    value: ActivityType.Any,
+  },
+  {
+    id: 1,
     name: 'Education',
     value: ActivityType.Education,
   },
   {
-    id: 1,
+    id: 2,
     name: 'Recreational',
     value: ActivityType.Recreational,
   },
   {
-    id: 2,
+    id: 3,
     name: 'Social',
     value: ActivityType.Social,
   },
   {
-    id: 3,
+    id: 4,
     name: 'Hobby & Craft',
     value: ActivityType.Diy,
   },
   {
-    id: 4,
+    id: 5,
     name: 'Charity',
     value: ActivityType.Charity,
   },
   {
-    id: 5,
+    id: 6,
     name: 'Cooking',
     value: ActivityType.Cooking,
   },
   {
-    id: 6,
+    id: 7,
     name: 'Relaxation',
     value: ActivityType.Relaxation,
   },
   {
-    id: 7,
+    id: 8,
     name: 'Music',
     value: ActivityType.Music,
   },
   {
-    id: 8,
+    id: 9,
     name: 'Busywork',
     value: ActivityType.Busywork,
   },
 ];
+
+export type UiChipGroup = {
+  id: number,
+  label: string,
+  url: string,
+}
+
+export const UiParticipantGroups: UiChipGroup[] = [
+  {
+    id: 0,
+    label: 'Any',
+    url: '',
+  },
+  {
+    id: 1,
+    label: '1',
+    url: 'participants=1',
+  },
+  {
+    id: 2,
+    label: '2',
+    url: 'participants=2',
+  },
+  {
+    id: 3,
+    label: '3–4',
+    url: 'participants=3&participants=4',
+  },
+  {
+    id: 4,
+    label: '5+',
+    // No activities for 6 or 7 participants
+    url: 'participants=5&participants=8',
+  },
+];
+
+export const AccessibilityLabel = {
+  any: 'Any',
+  easy: 'Easy',
+  medium: 'Medium',
+  challenging: 'Challenging',
+  hard: 'Hard',
+}
+
+export const UiAccessibilityGroups: UiChipGroup[] = [
+  {
+    id: 0,
+    label: AccessibilityLabel.any,
+    url: '',
+  },
+  {
+    id: 1,
+    label: AccessibilityLabel.easy,
+    url: 'minaccessibility=0&maxaccessibility=0.3',
+  },
+  {
+    id: 2,
+    label: AccessibilityLabel.medium,
+    url: 'minaccessibility=0.4&maxaccessibility=0.6',
+  },
+  {
+    id: 3,
+    label: AccessibilityLabel.challenging,
+    url: 'minaccessibility=0.7&maxaccessibility=0.8',
+  },
+  {
+    id: 4,
+    label: AccessibilityLabel.hard,
+    url: 'minaccessibility=0.9&maxaccessibility=1',
+  },
+]

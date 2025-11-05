@@ -1,55 +1,46 @@
 import { useState } from 'react';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { type SelectChangeEvent } from '@mui/material/Select';
 
-import { API_URL, type UiFilterActivityItem, UiFilterActivityItems } from 'src/constants.ts';
-import axios from 'axios';
+import {
+  type UiFilterActivityItem,
+  UiFilterActivityItems,
+} from 'src/constants.ts';
 
 const FilterByType = () => {
-  const [activity, setActivity] = useState<string>('???');
   const [selectedType, setSelectedType] = useState<string>('');
   
-  const radioItems = UiFilterActivityItems.map((item: UiFilterActivityItem) => (
-    <div key={item.id}>
-      <input
-        type="radio"
-        id={`item-${item.value}`}
-        name="type"
-        value={item.value}
-        checked={selectedType === item.value}
-        onChange={(e) => { setSelectedType(e.target.value) }}
-      />
-      <label htmlFor={`item-${item.value}`}>{item.name}</label>
-    </div>
-  ));
-  
-  const getActivityByType = async (): Promise<void> => {
-    const response = await axios.get(`${API_URL}?type=${selectedType}`);
-    
-    setActivity(response.data?.activity ?? '???');
-  }
+  const handleChange = (event: SelectChangeEvent) => {
+    setSelectedType(event.target.value);
+  };
   
   return (
     <div>
-      <fieldset>
-        <legend>Filter By Type</legend>
-        
-        <div style={{ display: 'flex', flexWrap: 'wrap', columnGap: '10px' }}>
-          {radioItems}
-        </div>
-        
-        {activity?.length > 0 && (
-          <div style={{ border: '1px solid red', padding: '10px', margin: '10px 0' }}>
-            {activity}
-          </div>
-        )}
-        
-        <button
-          type="button"
-          style={{ marginBottom: '10px' }}
-          onClick={getActivityByType}
+      <FormControl
+        fullWidth={true}
+        variant="filled"
+      >
+        <InputLabel id="activity-type-select-label">Activity type</InputLabel>
+        <Select
+          labelId="activity-type-select-label"
+          id="activity-type-select"
+          label="Activity type"
+          value={selectedType}
+          onChange={handleChange}
         >
-          Get Activity By Type
-        </button>
-      </fieldset>
+          {UiFilterActivityItems.map((item: UiFilterActivityItem) => (
+            <MenuItem
+              key={item.id}
+              value={item.value}
+            >
+              {item.value.length === 0 && <i>Activity Type</i>}
+              {item.value.length > 0 && item.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     </div>
   );
 };
