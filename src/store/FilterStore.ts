@@ -4,16 +4,18 @@ import { ActivityStore } from './ActivityStore';
 import {
   ActivityType,
   type ApiParams,
+  type UiGroupValue,
 } from 'src/constants.ts';
 
 export class FilterStore {
   // utility
   private activityStore: ActivityStore;
+  shouldSkipFetch = false;
   
   // UI filters
   type: ActivityType = ActivityType.Any;
-  participants: number[] | null = null;
-  accessibilityGroup: number[] | null = null;
+  participants: UiGroupValue = null;
+  accessibilityGroup: UiGroupValue = null;
   accessibilityValue: number = 0;
   isPrecise: boolean = false;
   
@@ -29,7 +31,8 @@ export class FilterStore {
         isPrecise: this.isPrecise,
       }),
       () => {
-        if (this.shouldSkipFetch()) {
+        if (this.shouldSkipFetch) {
+          this.shouldSkipFetch = false;
           return;
         }
         
@@ -42,24 +45,26 @@ export class FilterStore {
   buildParams() {
     const params: ApiParams = {
       type: this.type === ActivityType.Any ? null : this.type,
+      participants: this.participants,
     };
     
     return params;
   }
   
-  shouldSkipFetch(): boolean {
-    if (
-      // check filters reset
-      this.type === ActivityType.Any
-    ) {
-      return true;
+  setType(newType: ActivityType) {
+    if (newType === ActivityType.Any) {
+      this.shouldSkipFetch = true;
     }
     
-    return false;
+    this.type = newType;
   }
   
-  setType(newType: ActivityType) {
-    this.type = newType;
+  setParticipants(group: UiGroupValue) {
+    if (group === null) {
+      this.shouldSkipFetch = true;
+    }
+    
+    this.participants = group;
   }
   
   // TODO: add UI btn for filters reset

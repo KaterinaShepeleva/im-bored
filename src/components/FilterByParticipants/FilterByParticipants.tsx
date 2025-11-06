@@ -3,17 +3,22 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 
-import { UiParticipantGroups } from 'src/constants.ts';
+import {
+  type UiGroupValue,
+  UiParticipantGroups,
+} from 'src/constants.ts';
+import { filterStore } from 'store/root.ts';
 
 const FilterByParticipants = () => {
   const [groupIndex, setGroupIndex] = useState<number>(UiParticipantGroups[0].id);
   
-  const handleClick = (newIndex: number) => {
+  const handleClick = (newGroup: UiGroupValue, newIndex: number) => {
     if (newIndex == null) {
       return;
     }
     
     setGroupIndex(newIndex);
+    filterStore.setParticipants(newGroup);
   };
   
   return (
@@ -27,7 +32,7 @@ const FilterByParticipants = () => {
             color={groupIndex === index ? 'primary' : 'default'}
             variant={groupIndex === index ? 'filled' : 'outlined'}
             label={group.label}
-            onClick={() => handleClick(index)}
+            onClick={() => handleClick(group.value, index)}
             sx={{ minWidth: '60px' }}
           />
         ))}
