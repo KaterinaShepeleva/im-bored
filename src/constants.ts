@@ -105,7 +105,7 @@ export const UiFilterActivityItems: UiFilterActivityItem[] = [
 export type UiChipGroup = {
   id: number,
   label: string,
-  value: number[] | null,
+  value: GroupValue,
 }
 
 export const UiParticipantGroups: UiChipGroup[] = [
@@ -173,6 +173,6 @@ export const UiAccessibilityGroups: UiChipGroup[] = [
   },
 ]
 
-export type ApiParams = Record<string, string | UiGroupValue>;
+export type ApiParams = Record<string, string | number | GroupValue>;
 
-export type UiGroupValue = number[] | null;
+export type GroupValue = number[] | null;

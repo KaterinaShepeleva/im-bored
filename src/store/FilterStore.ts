@@ -4,18 +4,24 @@ import { ActivityStore } from './ActivityStore';
 import {
   ActivityType,
   type ApiParams,
-  type UiGroupValue,
+  type GroupValue,
 } from 'src/constants.ts';
+
+type AccessibilityMode = 'group' | 'precise';
+type AccessibilityParam =
+  { minaccessibility: number, maxaccessibility: number }
+  | { accessibility: number };
 
 export class FilterStore {
   // utility
   private activityStore: ActivityStore;
+  private accessibilityMode: AccessibilityMode = 'group';
   shouldSkipFetch = false;
   
   // UI filters
   type: ActivityType = ActivityType.Any;
-  participants: UiGroupValue = null;
-  accessibilityGroup: UiGroupValue = null;
+  participants: GroupValue = null;
+  accessibilityGroup: GroupValue = null;
   accessibilityValue: number = 0;
   isPrecise: boolean = false;
   
@@ -29,6 +35,8 @@ export class FilterStore {
         type: this.type,
         participants: this.participants,
         isPrecise: this.isPrecise,
+        accessibilityGroup: this.accessibilityGroup,
+        accessibilityValue: this.accessibilityValue,
       }),
       () => {
         if (this.shouldSkipFetch) {
@@ -43,7 +51,21 @@ export class FilterStore {
   }
   
   buildParams() {
+    let accessParam: AccessibilityParam;
+    
+    if (this.accessibilityMode === 'group') {
+      accessParam = {
+        minaccessibility: this.accessibilityGroup?.[0] ?? 0,
+        maxaccessibility: this.accessibilityGroup?.[1] ?? 1,
+      };
+    } else {
+      accessParam = {
+        accessibility: this.accessibilityValue,
+      };
+    }
+    
     const params: ApiParams = {
+      ...accessParam,
       type: this.type === ActivityType.Any ? null : this.type,
       participants: this.participants,
     };
@@ -59,7 +81,7 @@ export class FilterStore {
     this.type = newType;
   }
   
-  setParticipants(group: UiGroupValue) {
+  setParticipants(group: GroupValue) {
     if (group === null) {
       this.shouldSkipFetch = true;
     }
@@ -67,7 +89,23 @@ export class FilterStore {
     this.participants = group;
   }
   
-  // TODO: add UI btn for filters reset
+  setIsPrecise(isPrecise: boolean) {
+    this.accessibilityMode = isPrecise ? 'precise' : 'group';
+    this.isPrecise = isPrecise;
+  }
+  
+  setAccessibilityGroup(group: GroupValue) {
+    if (group === null) {
+      this.shouldSkipFetch = true;
+    }
+    
+    this.accessibilityGroup = group;
+  }
+  
+  setAccessibilityValue(value: number) {
+    this.accessibilityValue = value;
+  }
+  
   resetFilters() {
     this.type = ActivityType.Any;
     this.participants = null;

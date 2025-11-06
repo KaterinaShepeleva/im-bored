@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 
 import {
-  type UiGroupValue,
+  type GroupValue,
   UiParticipantGroups,
 } from 'src/constants.ts';
 import { filterStore } from 'store/root.ts';
@@ -12,7 +12,8 @@ import { filterStore } from 'store/root.ts';
 const FilterByParticipants = () => {
   const [groupIndex, setGroupIndex] = useState<number>(UiParticipantGroups[0].id);
   
-  const handleClick = (newGroup: UiGroupValue, newIndex: number) => {
+  const handleClick = (newGroup: GroupValue, newIndex: number) => {
+    // prevent Chip from deselecting
     if (newIndex == null) {
       return;
     }

@@ -1,34 +1,29 @@
-import { useState } from 'react';
+import { observer} from 'mobx-react-lite';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
-/*
-TODO: step must be 0.05 (not 0.1), because there is activity 8631548
- "Create a compost pile" with accessibility 0.15
- */
-const MIN = 0.1;
-const MAX = 1;
-const marks = [...Array(MAX * 10).keys()].map(item => ({
-  value: (item + 1) / 10,
-  label: '',
-}));
+import { filterStore } from 'store/root.ts';
 
-const AccessibilityValue = () => {
-  const [accessibility, setAccessibility] = useState<number>(MIN);
+const MIN = 0;
+const MAX = 1;
+const STEP = 0.05;
+
+const AccessibilityValue = observer(() => {
+  const { accessibilityValue, setAccessibilityValue } = filterStore;
   
   const handleChange = (_: Event, newValue: number) => {
-    setAccessibility(newValue);
+    setAccessibilityValue(newValue);
   };
   
   return (
-    <Box sx={{ width: 250, ml: '10px' }}>
+    <Box sx={{ width: 300, ml: '10px' }}>
       <Slider
         min={MIN}
         max={MAX}
-        marks={marks}
-        step={0.1}
-        value={accessibility}
+        marks={true}
+        step={STEP}
+        value={accessibilityValue}
         onChange={handleChange}
         valueLabelDisplay="auto"
       />
@@ -36,21 +31,21 @@ const AccessibilityValue = () => {
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '-10px' }}>
         <Typography
           variant="body2"
-          onClick={() => setAccessibility(MIN)}
+          onClick={() => setAccessibilityValue(MIN)}
           sx={{ cursor: 'pointer' }}
         >
-          {MIN} min
+          {MIN}
         </Typography>
         <Typography
           variant="body2"
-          onClick={() => setAccessibility(MAX)}
+          onClick={() => setAccessibilityValue(MAX)}
           sx={{ cursor: 'pointer' }}
         >
-          {MAX} max
+          {MAX}
         </Typography>
       </Box>
     </Box>
   );
-};
+});
 
 export default AccessibilityValue;
