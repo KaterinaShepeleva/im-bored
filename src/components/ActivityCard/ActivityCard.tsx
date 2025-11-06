@@ -3,7 +3,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-import { activityStore } from 'store/ActivityStore.ts';
+import { activityStore } from 'store/root.ts';
 import { UiFilterActivityItems } from 'src/constants.ts';
 import { getAccessibilityLabel } from 'src/utils.ts';
 
@@ -21,6 +21,7 @@ const ActivityCard = observer(() => {
   } = activityStore;
   const accessibilityDesc = `Accessibility: ${accessibility} (${getAccessibilityLabel(accessibility)})`;
   
+  // TODO: add skeleton on loading
   return (
     <Box sx={{ m: '10px 0' }}>
       <Paper

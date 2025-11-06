@@ -5,6 +5,7 @@ import {
   API_URL,
   type ActivityItem,
   ActivityType,
+  type ApiParams,
 } from 'src/constants.ts';
 
 // type ActivityResponseError = {
@@ -13,12 +14,15 @@ import {
 
 // type ActivityResponse = ActivityItem | ActivityResponseError;
 
-class ActivityStore {
+export class ActivityStore {
+  // activity properties
   key: string = '1000000';
   activity: string = '';
   type: ActivityType = ActivityType.Any;
   participants: number = 0;
   accessibility: number = 0;
+  
+  // UI data
   isLoading: boolean = false;
   activityError: string | null = null;
   
@@ -27,11 +31,11 @@ class ActivityStore {
     void this.fetchActivity();
   }
   
-  async fetchActivity(): Promise<void> {
+  async fetchActivity(params: ApiParams = {}): Promise<void> {
     this.isLoading = true;
     
     try {
-      const response = await axios.get<ActivityItem>(API_URL);
+      const response = await axios.get<ActivityItem>(API_URL, { params });
       
       // TODO: response validation
       const data: ActivityItem = response.data;
@@ -51,9 +55,9 @@ class ActivityStore {
     } catch (error) {
       console.error('Failed to fetch activity:', error);
     } finally {
-      this.isLoading = false;
+      runInAction(() => {
+        this.isLoading = false;
+      });
     }
   }
 }
-
-export const activityStore = new ActivityStore();

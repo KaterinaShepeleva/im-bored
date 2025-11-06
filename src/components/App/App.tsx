@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 
 import './App.css';
-import { activityStore } from 'store/ActivityStore.ts';
+import { activityStore } from 'store/root.ts';
 import ActivityCard from 'components/ActivityCard/ActivityCard.tsx';
 import FilterByType from 'components/FilterByType/FilterByType.tsx';
 import FilterByParticipants from 'components/FilterByParticipants/FilterByParticipants.tsx';
@@ -27,7 +27,7 @@ function App() {
       <Button
         variant="contained"
         color="primary"
-        onClick={fetchActivity}
+        onClick={() => fetchActivity()}
         sx={{ m: '20px 0 10px' }}
       >
         Get another idea

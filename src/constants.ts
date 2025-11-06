@@ -172,3 +172,5 @@ export const UiAccessibilityGroups: UiChipGroup[] = [
     value: [0.9, 1],
   },
 ]
+
+export type ApiParams = Record<string, string | number | null>;

@@ -1,19 +1,21 @@
-import { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { type SelectChangeEvent } from '@mui/material/Select';
 
 import {
+  ActivityType,
   type UiFilterActivityItem,
   UiFilterActivityItems,
 } from 'src/constants.ts';
+import { filterStore } from 'store/root.ts';
 
-const FilterByType = () => {
-  const [selectedType, setSelectedType] = useState<string>('');
+const FilterByType = observer(() => {
+  const { type, setType } = filterStore;
   
   const handleChange = (event: SelectChangeEvent) => {
-    setSelectedType(event.target.value);
+    setType(event.target.value as ActivityType);
   };
   
   return (
@@ -27,7 +29,7 @@ const FilterByType = () => {
           labelId="activity-type-select-label"
           id="activity-type-select"
           label="Activity type"
-          value={selectedType}
+          value={type}
           onChange={handleChange}
         >
           {UiFilterActivityItems.map((item: UiFilterActivityItem) => (
@@ -43,6 +45,6 @@ const FilterByType = () => {
       </FormControl>
     </div>
   );
-};
+});
 
 export default FilterByType;
