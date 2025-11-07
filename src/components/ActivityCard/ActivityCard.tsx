@@ -1,7 +1,11 @@
 import { observer } from 'mobx-react-lite';
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import CategoryIcon from '@mui/icons-material/CategoryOutlined';
+import GroupIcon from '@mui/icons-material/GroupOutlined';
+import SpeedIcon from '@mui/icons-material/Speed';
 import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import Stack from '@mui/material/Stack';
 
 import { activityStore } from 'store/root.ts';
 import { TYPE_OPTIONS } from 'constants/activityType.ts';
@@ -19,24 +23,43 @@ const ActivityCard = observer(() => {
     participants,
     accessibility,
   } = activityStore;
-  const accessibilityDesc = `Accessibility: ${accessibility} (${getAccessibilityLabel(accessibility)})`;
+  const accessibilityDescr = `${accessibility} (${getAccessibilityLabel(accessibility)})`;
   
   // TODO: add skeleton on loading
   return (
     <Box sx={{ m: '10px 0' }}>
-      <Paper
-        square={true}
-        elevation={2}
-        sx={{ p: '15px' }}
+      <Card
+        elevation={1}
+        sx={{
+          p: 2.5,
+          borderRadius: 3,
+        }}
       >
-        <Typography variant="body2">
-          <strong>{activity}</strong>
+        <Typography variant="h6" sx={{ mb: 1, fontWeight: 600, color: 'primary.main' }}>
+          {activity}
         </Typography>
         
-        <Typography variant="body2">
-          Type: {getTypeLabel(type)} | For {participants} people | {accessibilityDesc}
-        </Typography>
-      </Paper>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <CategoryIcon sx={{ fontSize: 18, color: 'text.secondary' }} />
+          <Typography variant="body1" color="text.secondary">
+            Type: {getTypeLabel(type)}
+          </Typography>
+        </Stack>
+        
+        <Stack direction="row" spacing={1} alignItems="center">
+          <GroupIcon sx={{ fontSize: 18, color: 'text.secondary' }} />
+          <Typography variant="body1" color="text.secondary">
+            For {participants} {participants === 1 ? 'person' : 'people'}
+          </Typography>
+        </Stack>
+        
+        <Stack direction="row" spacing={1} alignItems="center">
+          <SpeedIcon sx={{ fontSize: 18, color: 'text.secondary' }} />
+          <Typography variant="body1" color="text.secondary">
+            Accessibility: {accessibilityDescr}
+          </Typography>
+        </Stack>
+      </Card>
     </Box>
   );
 });

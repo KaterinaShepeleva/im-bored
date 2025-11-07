@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -19,7 +20,7 @@ const FilterByType = observer(() => {
   };
   
   return (
-    <div>
+    <Box sx={{ mb: '20px' }}>
       <FormControl
         fullWidth={true}
         variant="filled"
@@ -43,7 +44,7 @@ const FilterByType = observer(() => {
           ))}
         </Select>
       </FormControl>
-    </div>
+    </Box>
   );
 });
 

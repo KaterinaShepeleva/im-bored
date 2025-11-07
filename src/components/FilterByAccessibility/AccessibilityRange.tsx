@@ -21,11 +21,11 @@ const AccessibilityRange = observer(() => {
   };
   
   return (
-    <Box sx={{ display: 'flex', gap: 1, m: '10px 0' }}>
+    <Box sx={{ display: 'flex', gap: 1 }}>
       {ACCESSIBILITY_GROUPS.map((group) => (
         <Chip
           key={group.id}
-          color={group.id === accessibilityGroup.id ? 'primary' : 'default'}
+          color="primary"
           variant={group.id === accessibilityGroup.id ? 'filled' : 'outlined'}
           label={group.label}
           onClick={() => handleClick(group)}
