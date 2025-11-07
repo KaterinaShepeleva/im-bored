@@ -9,8 +9,10 @@ export default defineConfig({
   resolve: {
     alias: {
       'src': path.resolve('src/'),
+      'store': path.resolve('src/store/'),
       'assets': path.resolve('src/assets/'),
       'components': path.resolve('src/components/'),
+      'constants': path.resolve('src/constants/'),
     },
   },
 });

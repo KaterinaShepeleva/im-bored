@@ -1,36 +1,13 @@
-import { useCallback, useEffect, useState } from 'react';
-import axios from 'axios';
 import Button from '@mui/material/Button';
 
 import './App.css';
-import { type ActivityItem, ActivityType, API_URL } from 'src/constants.ts';
+import { filterStore } from 'store/root.ts';
 import ActivityCard from 'components/ActivityCard/ActivityCard.tsx';
 import FilterByType from 'components/FilterByType/FilterByType.tsx';
 import FilterByParticipants from 'components/FilterByParticipants/FilterByParticipants.tsx';
 import FilterByAccessibility from 'components/FilterByAccessibility/FilterByAccessibility.tsx';
 
-const initialState: ActivityItem = {
-  key: '1000000',
-  activity: '—',
-  type: ActivityType.Any,
-  participants: 1,
-  accessibility: 0.1,
-}
-
 function App() {
-  const [activity, setActivity] = useState<ActivityItem>(initialState);
-  
-  const getRandomActivity = useCallback(async (): Promise<void> => {
-    const response = await axios.get(API_URL);
-    console.log(response.data);
-    
-    setActivity(response.data ?? { ...initialState });
-  }, []);
-  
-  useEffect(() => {
-    getRandomActivity().catch(console.error);
-  }, [getRandomActivity]);
-  
   return (
     <>
       <h1 style={{ fontSize: '32px' }}>
@@ -46,14 +23,15 @@ function App() {
       <FilterByAccessibility/>
       
       <Button
-        variant="contained"
-        onClick={() => false}
+        variant="outlined"
+        color="primary"
+        onClick={filterStore.resetFilters}
         sx={{ m: '20px 0 10px' }}
       >
-        Get another idea
+        Reset all filters
       </Button>
       
-      <ActivityCard data={activity}/>
+      <ActivityCard/>
     </>
   );
 }

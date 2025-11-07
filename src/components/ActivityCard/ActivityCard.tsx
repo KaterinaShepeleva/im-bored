@@ -1,28 +1,27 @@
+import { observer } from 'mobx-react-lite';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-import { type ActivityItem, UiFilterActivityItems } from 'src/constants.ts';
+import { activityStore } from 'store/root.ts';
+import { TYPE_OPTIONS } from 'constants/activityType.ts';
 import { getAccessibilityLabel } from 'src/utils.ts';
 
 const getTypeLabel = (apiType: string) => {
-  const result = UiFilterActivityItems.find((item) => item.value === apiType);
-  return result ? result.name : apiType;
-}
+  const result = TYPE_OPTIONS.find((item) => item.value === apiType);
+  return result && result.name.length > 0 ? result.name : '—';
+};
 
-interface ActivityCardProps {
-  data: ActivityItem;
-}
-
-const ActivityCard = (props: ActivityCardProps) => {
+const ActivityCard = observer(() => {
   const {
     activity,
     type,
     participants,
     accessibility,
-  } = props.data;
+  } = activityStore;
   const accessibilityDesc = `Accessibility: ${accessibility} (${getAccessibilityLabel(accessibility)})`;
   
+  // TODO: add skeleton on loading
   return (
     <Box sx={{ m: '10px 0' }}>
       <Paper
@@ -40,6 +39,6 @@ const ActivityCard = (props: ActivityCardProps) => {
       </Paper>
     </Box>
   );
-};
+});
 
 export default ActivityCard;

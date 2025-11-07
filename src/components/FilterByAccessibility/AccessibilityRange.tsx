@@ -1,34 +1,39 @@
-import { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 
-import { UiAccessibilityGroups } from 'src/constants.ts';
+import {
+  type AccessibilityGroup,
+  ACCESSIBILITY_GROUPS,
+} from 'constants/accessibilityValues.ts';
+import { filterStore } from 'store/root.ts';
 
-const AccessibilityRange = () => {
-  const [groupIndex, setGroupIndex] = useState(UiAccessibilityGroups[0].id);
+const AccessibilityRange = observer(() => {
+  const { accessibilityGroup, setAccessibilityGroup } = filterStore;
   
-  const handleClick = (newIndex: number) => {
-    if (newIndex == null) {
+  const handleClick = (newGroup: AccessibilityGroup) => {
+    // prevent Chip from deselecting
+    if (newGroup.id == accessibilityGroup.id) {
       return;
     }
     
-    setGroupIndex(newIndex);
+    setAccessibilityGroup(newGroup);
   };
   
   return (
     <Box sx={{ display: 'flex', gap: 1, m: '10px 0' }}>
-      {UiAccessibilityGroups.map((group, index) => (
+      {ACCESSIBILITY_GROUPS.map((group) => (
         <Chip
           key={group.id}
-          color={groupIndex === index ? 'primary' : 'default'}
-          variant={groupIndex === index ? 'filled' : 'outlined'}
+          color={group.id === accessibilityGroup.id ? 'primary' : 'default'}
+          variant={group.id === accessibilityGroup.id ? 'filled' : 'outlined'}
           label={group.label}
-          onClick={() => handleClick(index)}
+          onClick={() => handleClick(group)}
           sx={{ minWidth: '60px' }}
         />
       ))}
     </Box>
   );
-};
+});
 
 export default AccessibilityRange;
