@@ -2,10 +2,17 @@ import { makeAutoObservable, reaction } from 'mobx';
 
 import { ActivityStore } from './ActivityStore';
 import {
-  ActivityType,
   type ApiParams,
-  type GroupValue,
 } from 'src/constants.ts';
+import { ActivityType } from 'constants/activityType.ts';
+import {
+  type ParticipantGroup,
+  PARTICIPANT_GROUPS,
+} from 'constants/participants.ts';
+import {
+  type AccessibilityGroup,
+  ACCESSIBILITY_GROUPS,
+} from 'constants/accessibilityValues.ts';
 
 type AccessibilityMode = 'group' | 'precise';
 type AccessibilityParam =
@@ -20,8 +27,8 @@ export class FilterStore {
   
   // UI filters
   type: ActivityType = ActivityType.Any;
-  participants: GroupValue = null;
-  accessibilityGroup: GroupValue = null;
+  participants: ParticipantGroup = PARTICIPANT_GROUPS[0];
+  accessibilityGroup: AccessibilityGroup = ACCESSIBILITY_GROUPS[0];
   accessibilityValue: number = 0;
   isPrecise: boolean = false;
   
@@ -55,8 +62,8 @@ export class FilterStore {
     
     if (this.accessibilityMode === 'group') {
       accessParam = {
-        minaccessibility: this.accessibilityGroup?.[0] ?? 0,
-        maxaccessibility: this.accessibilityGroup?.[1] ?? 1,
+        minaccessibility: this.accessibilityGroup.value[0] ?? 0,
+        maxaccessibility: this.accessibilityGroup.value[1] ?? 1,
       };
     } else {
       accessParam = {
@@ -67,7 +74,7 @@ export class FilterStore {
     const params: ApiParams = {
       ...accessParam,
       type: this.type === ActivityType.Any ? null : this.type,
-      participants: this.participants,
+      participants: this.participants.value.length > 0 ? this.participants.value : null,
     };
     
     return params;
@@ -81,8 +88,8 @@ export class FilterStore {
     this.type = newType;
   }
   
-  setParticipants(group: GroupValue) {
-    if (group === null) {
+  setParticipants(group: ParticipantGroup) {
+    if (group.value.length === 0) {
       this.shouldSkipFetch = true;
     }
     
@@ -94,7 +101,7 @@ export class FilterStore {
     this.isPrecise = isPrecise;
   }
   
-  setAccessibilityGroup(group: GroupValue) {
+  setAccessibilityGroup(group: AccessibilityGroup) {
     if (group === null) {
       this.shouldSkipFetch = true;
     }
@@ -107,9 +114,11 @@ export class FilterStore {
   }
   
   resetFilters() {
+    this.shouldSkipFetch = true;
+    
     this.type = ActivityType.Any;
-    this.participants = null;
-    this.accessibilityGroup = null;
+    this.participants = PARTICIPANT_GROUPS[0];
+    this.accessibilityGroup = ACCESSIBILITY_GROUPS[0];
     this.accessibilityValue = 0;
     this.isPrecise = false;
   }

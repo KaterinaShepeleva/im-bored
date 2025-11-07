@@ -1,4 +1,4 @@
-import { AccessibilityLabel } from 'src/constants.ts';
+import { AccessibilityLabel } from 'constants/accessibilityValues.ts';
 
 type AccessibilityKeys = keyof typeof AccessibilityLabel;
 type AccessibilityValues = typeof AccessibilityLabel[AccessibilityKeys]

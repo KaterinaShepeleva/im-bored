@@ -3,10 +3,10 @@ import axios from 'axios';
 
 import {
   API_URL,
-  type ActivityItem,
-  ActivityType,
+  type Activity,
   type ApiParams,
 } from 'src/constants.ts';
+import { ActivityType } from 'constants/activityType.ts';
 
 // type ActivityResponseError = {
 //   error: string,
@@ -35,10 +35,10 @@ export class ActivityStore {
     this.isLoading = true;
     
     try {
-      const response = await axios.get<ActivityItem>(API_URL, { params });
+      const response = await axios.get<Activity>(API_URL, { params });
       
       // TODO: response validation
-      const data: ActivityItem = response.data;
+      const data: Activity = response.data;
       console.log('response data', response.data);
       
       runInAction(() => {

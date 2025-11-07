@@ -1,15 +1,13 @@
 import Button from '@mui/material/Button';
 
 import './App.css';
-import { activityStore } from 'store/root.ts';
+import { filterStore } from 'store/root.ts';
 import ActivityCard from 'components/ActivityCard/ActivityCard.tsx';
 import FilterByType from 'components/FilterByType/FilterByType.tsx';
 import FilterByParticipants from 'components/FilterByParticipants/FilterByParticipants.tsx';
 import FilterByAccessibility from 'components/FilterByAccessibility/FilterByAccessibility.tsx';
 
 function App() {
-  const { fetchActivity } = activityStore;
-  
   return (
     <>
       <h1 style={{ fontSize: '32px' }}>
@@ -25,12 +23,12 @@ function App() {
       <FilterByAccessibility/>
       
       <Button
-        variant="contained"
+        variant="outlined"
         color="primary"
-        onClick={() => fetchActivity()}
+        onClick={filterStore.resetFilters}
         sx={{ m: '20px 0 10px' }}
       >
-        Get another idea
+        Reset all filters
       </Button>
       
       <ActivityCard/>

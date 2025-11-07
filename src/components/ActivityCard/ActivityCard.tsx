@@ -4,11 +4,11 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 import { activityStore } from 'store/root.ts';
-import { UiFilterActivityItems } from 'src/constants.ts';
+import { TYPE_OPTIONS } from 'constants/activityType.ts';
 import { getAccessibilityLabel } from 'src/utils.ts';
 
 const getTypeLabel = (apiType: string) => {
-  const result = UiFilterActivityItems.find((item) => item.value === apiType);
+  const result = TYPE_OPTIONS.find((item) => item.value === apiType);
   return result && result.name.length > 0 ? result.name : '—';
 };
 

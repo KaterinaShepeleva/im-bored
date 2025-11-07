@@ -20,7 +20,8 @@
       "src/*": ["./src/*"],
       "store/*": ["./src/store/*"],
       "assets/*": ["./src/assets/*"],
-      "components/*": ["./src/components/*"]
+      "components/*": ["./src/components/*"],
+      "constants/*": ["./src/constants/*"]
     },
 
     /* Linting */

@@ -6,9 +6,9 @@ import Select, { type SelectChangeEvent } from '@mui/material/Select';
 
 import {
   ActivityType,
-  type UiFilterActivityItem,
-  UiFilterActivityItems,
-} from 'src/constants.ts';
+  type ActivityTypeOption,
+  TYPE_OPTIONS,
+} from 'constants/activityType.ts';
 import { filterStore } from 'store/root.ts';
 
 const FilterByType = observer(() => {
@@ -32,7 +32,7 @@ const FilterByType = observer(() => {
           value={type}
           onChange={handleChange}
         >
-          {UiFilterActivityItems.map((item: UiFilterActivityItem) => (
+          {TYPE_OPTIONS.map((item: ActivityTypeOption) => (
             <MenuItem
               key={item.id}
               value={item.value}

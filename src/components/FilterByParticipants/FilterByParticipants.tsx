@@ -1,25 +1,24 @@
-import { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 
 import {
-  type GroupValue,
-  UiParticipantGroups,
-} from 'src/constants.ts';
+  type ParticipantGroup,
+  PARTICIPANT_GROUPS,
+} from 'constants/participants.ts';
 import { filterStore } from 'store/root.ts';
 
-const FilterByParticipants = () => {
-  const [groupIndex, setGroupIndex] = useState<number>(UiParticipantGroups[0].id);
+const FilterByParticipants = observer(() => {
+  const { participants, setParticipants } = filterStore;
   
-  const handleClick = (newGroup: GroupValue, newIndex: number) => {
+  const handleClick = (newGroup: ParticipantGroup) => {
     // prevent Chip from deselecting
-    if (newIndex == null) {
+    if (newGroup.id == participants.id) {
       return;
     }
     
-    setGroupIndex(newIndex);
-    filterStore.setParticipants(newGroup);
+    setParticipants(newGroup);
   };
   
   return (
@@ -27,19 +26,19 @@ const FilterByParticipants = () => {
       <Typography variant="body2" sx={{ margin: '10px 0' }}>Group size</Typography>
       
       <Box sx={{ display: 'flex', gap: 1 }}>
-        {UiParticipantGroups.map((group, index) => (
+        {PARTICIPANT_GROUPS.map((group) => (
           <Chip
             key={group.id}
-            color={groupIndex === index ? 'primary' : 'default'}
-            variant={groupIndex === index ? 'filled' : 'outlined'}
+            color={group.id === participants.id ? 'primary' : 'default'}
+            variant={group.id === participants.id ? 'filled' : 'outlined'}
             label={group.label}
-            onClick={() => handleClick(group.value, index)}
+            onClick={() => handleClick(group)}
             sx={{ minWidth: '60px' }}
           />
         ))}
       </Box>
     </div>
   );
-};
+});
 
 export default FilterByParticipants;
