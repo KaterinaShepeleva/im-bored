@@ -20,17 +20,15 @@ const FilterByAccessibility = observer(() => {
   );
   
   return (
-    <Box sx={{ m: '20px 0' }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography variant="body1">
-          Accessibility
-        </Typography>
-        
-        <FormControlLabel
-          control={checkbox}
-          label="Precise adjustment"
-        />
-      </Box>
+    <Box>
+      <Typography variant="body1">
+        Accessibility
+      </Typography>
+      
+      <Typography variant="caption" sx={{ mb: 1.5, display: 'block', color: 'text.secondary', lineHeight: 1.5 }}>
+        Accessibility shows how easy this activity is to do.
+        {isPrecise && accessibilityDescrEnd}
+      </Typography>
       
       {
         isPrecise
@@ -38,12 +36,12 @@ const FilterByAccessibility = observer(() => {
           : <AccessibilityRange/>
       }
       
-      <Box sx={{ mt: 0.5 }}>
-        <Typography variant="caption" sx={{ color: 'text.secondary', lineHeight: 1.3 }}>
-          Accessibility shows how easy this activity is to do.
-          {isPrecise && accessibilityDescrEnd}
-        </Typography>
-      </Box>
+      <div>
+        <FormControlLabel
+          control={checkbox}
+          label="Precise adjustment"
+        />
+      </div>
     </Box>
   );
 });

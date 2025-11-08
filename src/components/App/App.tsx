@@ -16,28 +16,32 @@ function App() {
         If I'm Bored
       </h1>
       
-      <FilterByType/>
-      
-      <FilterByParticipants/>
-      
-      <FilterByAccessibility/>
-      
-      <Stack direction="row" spacing={1} sx={{ m: '40px 0' }}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => false}
-        >
-          Apply filters
-        </Button>
+      <Stack direction="row" spacing={3} justifyContent="space-between" alignItems="center">
+        <FilterByType/>
         
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={filterStore.resetFilters}
-        >
-          Reset all filters
-        </Button>
+        <FilterByParticipants/>
+      </Stack>
+      
+      <Stack direction="row" spacing={2} justifyContent="space-between" mt={2}>
+        <FilterByAccessibility/>
+        
+        <Stack direction="column" spacing={1.5} flexShrink={0} sx={{ pt: 2 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => false}
+          >
+            Apply filters
+          </Button>
+          
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={filterStore.resetFilters}
+          >
+            Reset all filters
+          </Button>
+        </Stack>
       </Stack>
       
       <ActivityCard/>

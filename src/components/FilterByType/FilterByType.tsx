@@ -20,10 +20,10 @@ const FilterByType = observer(() => {
   };
   
   return (
-    <Box sx={{ mb: '20px' }}>
+    <Box sx={{ flexGrow: 1 }}>
       <FormControl
         fullWidth={true}
-        variant="filled"
+        variant="outlined"
       >
         <InputLabel id="activity-type-select-label">Activity type</InputLabel>
         <Select

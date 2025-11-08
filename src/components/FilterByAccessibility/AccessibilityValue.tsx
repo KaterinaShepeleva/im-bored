@@ -32,16 +32,16 @@ const AccessibilityValue = observer(() => {
         <Typography
           variant="body2"
           onClick={() => setAccessibilityValue(MIN)}
-          sx={{ cursor: 'pointer' }}
+          sx={{ cursor: 'pointer', pl: 1, pr: 1, ml: -1, color: 'text.secondary' }}
         >
-          {MIN}
+          {MIN} min
         </Typography>
         <Typography
           variant="body2"
           onClick={() => setAccessibilityValue(MAX)}
-          sx={{ cursor: 'pointer' }}
+          sx={{ cursor: 'pointer', pl: 1, pr: 1, mr: -1, color: 'text.secondary' }}
         >
-          {MAX}
+          max {MAX}
         </Typography>
       </Box>
     </Box>
