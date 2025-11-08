@@ -8,11 +8,8 @@ import {
 } from 'src/constants.ts';
 import { ActivityType } from 'constants/activityType.ts';
 
-// type ActivityResponseError = {
-//   error: string,
-// }
-
-// type ActivityResponse = ActivityItem | ActivityResponseError;
+type ActivityError = { error: string };
+type ActivityResponse = Activity | ActivityError;
 
 export class ActivityStore {
   // activity properties
@@ -24,7 +21,7 @@ export class ActivityStore {
   
   // UI data
   isLoading: boolean = false;
-  activityError: string | null = null;
+  activityError: boolean = false;
   
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
@@ -35,23 +32,24 @@ export class ActivityStore {
     this.isLoading = true;
     
     try {
-      const response = await axios.get<Activity>(API_URL, { params });
+      const response = await axios.get<ActivityResponse>(API_URL, { params });
+      const { data } = response;
+      console.log('response data', data);
       
-      // TODO: response validation
-      const data: Activity = response.data;
-      console.log('response data', response.data);
-      
-      runInAction(() => {
-        this.key = data.key;
-        this.activity = data.activity;
-        this.type = data.type as ActivityType;
-        this.participants = data.participants;
-        this.accessibility = data.accessibility;
-      });
-      
-      // if (response.error) {
-      //   this.activityError = response.error;
-      // }
+      if ('error' in data) {
+        runInAction(() => {
+          this.activityError = true;
+        });
+      } else {
+        runInAction(() => {
+          this.key = data.key;
+          this.activity = data.activity;
+          this.type = data.type as ActivityType;
+          this.participants = data.participants;
+          this.accessibility = data.accessibility;
+          this.activityError = false;
+        });
+      }
     } catch (error) {
       console.error('Failed to fetch activity:', error);
     } finally {

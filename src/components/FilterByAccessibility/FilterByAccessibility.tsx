@@ -5,7 +5,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
 import { filterStore } from 'store/root.ts';
-import AccessibilityRange from './AccessibilityRange.tsx';
+import AccessibilityGroups from './AccessibilityGroups.tsx';
 import AccessibilityValue from './AccessibilityValue.tsx';
 
 const FilterByAccessibility = observer(() => {
@@ -33,15 +33,15 @@ const FilterByAccessibility = observer(() => {
       {
         isPrecise
           ? <AccessibilityValue/>
-          : <AccessibilityRange/>
+          : <AccessibilityGroups/>
       }
       
-      <div>
+      <Box>
         <FormControlLabel
           control={checkbox}
           label="Precise adjustment"
         />
-      </div>
+      </Box>
     </Box>
   );
 });

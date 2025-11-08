@@ -8,7 +8,7 @@ import {
 } from 'constants/accessibilityValues.ts';
 import { filterStore } from 'store/root.ts';
 
-const AccessibilityRange = observer(() => {
+const AccessibilityGroups = observer(() => {
   const { accessibilityGroup, setAccessibilityGroup } = filterStore;
   
   const handleClick = (newGroup: AccessibilityGroup) => {
@@ -21,7 +21,7 @@ const AccessibilityRange = observer(() => {
   };
   
   return (
-    <Box sx={{ display: 'flex', gap: 1 }}>
+    <Box sx={{ display: 'flex', gap: 1, pt: 1, pb: 1 }}>
       {ACCESSIBILITY_GROUPS.map((group) => (
         <Chip
           key={group.id}
@@ -36,4 +36,4 @@ const AccessibilityRange = observer(() => {
   );
 });
 
-export default AccessibilityRange;
+export default AccessibilityGroups;
