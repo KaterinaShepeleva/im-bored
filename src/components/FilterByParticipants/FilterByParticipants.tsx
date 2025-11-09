@@ -22,14 +22,16 @@ const FilterByParticipants = observer(() => {
   };
   
   return (
-    <div>
-      <Typography variant="body2" sx={{ margin: '10px 0' }}>Group size</Typography>
+    <Box sx={{ mt: 2, mb: 2 }}>
+      <Typography variant="body1" sx={{ mb: 0.5 }}>
+        Group size
+      </Typography>
       
       <Box sx={{ display: 'flex', gap: 1 }}>
         {PARTICIPANT_GROUPS.map((group) => (
           <Chip
             key={group.id}
-            color={group.id === participants.id ? 'primary' : 'default'}
+            color="primary"
             variant={group.id === participants.id ? 'filled' : 'outlined'}
             label={group.label}
             onClick={() => handleClick(group)}
@@ -37,7 +39,7 @@ const FilterByParticipants = observer(() => {
           />
         ))}
       </Box>
-    </div>
+    </Box>
   );
 });
 

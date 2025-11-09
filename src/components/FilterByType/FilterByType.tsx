@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -19,10 +20,10 @@ const FilterByType = observer(() => {
   };
   
   return (
-    <div>
+    <Box sx={{ flexGrow: 1 }}>
       <FormControl
         fullWidth={true}
-        variant="filled"
+        variant="outlined"
       >
         <InputLabel id="activity-type-select-label">Activity type</InputLabel>
         <Select
@@ -43,7 +44,7 @@ const FilterByType = observer(() => {
           ))}
         </Select>
       </FormControl>
-    </div>
+    </Box>
   );
 });
 

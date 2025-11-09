@@ -1,11 +1,17 @@
 import { observer } from 'mobx-react-lite';
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import CategoryIcon from '@mui/icons-material/CategoryOutlined';
+import GroupIcon from '@mui/icons-material/GroupOutlined';
+import SpeedIcon from '@mui/icons-material/Speed';
 import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import Stack from '@mui/material/Stack';
 
 import { activityStore } from 'store/root.ts';
 import { TYPE_OPTIONS } from 'constants/activityType.ts';
 import { getAccessibilityLabel } from 'src/utils.ts';
+import ActivityNotFound from './ActivityNotFound.tsx';
+import ActivityLoading from 'components/ActivityCard/ActivityLoading.tsx';
 
 const getTypeLabel = (apiType: string) => {
   const result = TYPE_OPTIONS.find((item) => item.value === apiType);
@@ -18,25 +24,58 @@ const ActivityCard = observer(() => {
     type,
     participants,
     accessibility,
+    isLoading,
+    activityError,
   } = activityStore;
-  const accessibilityDesc = `Accessibility: ${accessibility} (${getAccessibilityLabel(accessibility)})`;
+  const accessibilityDescr = `${accessibility} (${getAccessibilityLabel(accessibility)})`;
   
-  // TODO: add skeleton on loading
+  if (isLoading) {
+    return <ActivityLoading/>;
+  }
+  
+  if (activityError) {
+    return <ActivityNotFound/>;
+  }
+  
   return (
-    <Box sx={{ m: '10px 0' }}>
-      <Paper
-        square={true}
-        elevation={2}
-        sx={{ p: '15px' }}
+    <Box sx={{ mt: 3, mb: 2 }}>
+      <Card
+        elevation={1}
+        sx={{
+          p: 2.5,
+          borderRadius: 3,
+          width: '70%',
+          m: '0 auto',
+        }}
       >
-        <Typography variant="body2">
-          <strong>{activity}</strong>
+        <Typography
+          variant="h6"
+          sx={{ mb: 2, color: 'primary.main', lineHeight: 1.4 }}
+        >
+          {activity}
         </Typography>
         
-        <Typography variant="body2">
-          Type: {getTypeLabel(type)} | For {participants} people | {accessibilityDesc}
-        </Typography>
-      </Paper>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <CategoryIcon color="secondary" sx={{ fontSize: 18 }}/>
+          <Typography variant="body1" color="text.secondary">
+            Type: {getTypeLabel(type)}
+          </Typography>
+        </Stack>
+        
+        <Stack direction="row" spacing={1} alignItems="center">
+          <GroupIcon color="secondary" sx={{ fontSize: 18 }}/>
+          <Typography variant="body1" color="text.secondary">
+            For {participants} {participants === 1 ? 'person' : 'people'}
+          </Typography>
+        </Stack>
+        
+        <Stack direction="row" spacing={1} alignItems="center">
+          <SpeedIcon color="secondary" sx={{ fontSize: 18 }}/>
+          <Typography variant="body1" color="text.secondary">
+            Accessibility: {accessibilityDescr}
+          </Typography>
+        </Stack>
+      </Card>
     </Box>
   );
 });
