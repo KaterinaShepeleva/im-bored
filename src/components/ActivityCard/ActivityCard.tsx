@@ -56,21 +56,21 @@ const ActivityCard = observer(() => {
         </Typography>
         
         <Stack direction="row" spacing={1} alignItems="center">
-          <CategoryIcon sx={{ fontSize: 18, color: 'text.secondary' }}/>
+          <CategoryIcon color="secondary" sx={{ fontSize: 18 }}/>
           <Typography variant="body1" color="text.secondary">
             Type: {getTypeLabel(type)}
           </Typography>
         </Stack>
         
         <Stack direction="row" spacing={1} alignItems="center">
-          <GroupIcon sx={{ fontSize: 18, color: 'text.secondary' }}/>
+          <GroupIcon color="secondary" sx={{ fontSize: 18 }}/>
           <Typography variant="body1" color="text.secondary">
             For {participants} {participants === 1 ? 'person' : 'people'}
           </Typography>
         </Stack>
         
         <Stack direction="row" spacing={1} alignItems="center">
-          <SpeedIcon sx={{ fontSize: 18, color: 'text.secondary' }}/>
+          <SpeedIcon color="secondary" sx={{ fontSize: 18 }}/>
           <Typography variant="body1" color="text.secondary">
             Accessibility: {accessibilityDescr}
           </Typography>

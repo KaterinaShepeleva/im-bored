@@ -8,12 +8,14 @@ import ActivityCard from 'components/ActivityCard/ActivityCard.tsx';
 import FilterByType from 'components/FilterByType/FilterByType.tsx';
 import FilterByParticipants from 'components/FilterByParticipants/FilterByParticipants.tsx';
 import FilterByAccessibility from 'components/FilterByAccessibility/FilterByAccessibility.tsx';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
 function App() {
   return (
     <Box sx={{ backgroundColor: 'background.default', height: '100%' }}>
       <h1 style={{ fontSize: '32px' }}>
-        If I'm Bored
+        <AutoAwesomeIcon fontSize="inherit" color="secondary" sx={{ verticalAlign: 'top', mr: 1.5 }}/>
+        <span>If I'm Bored</span>
       </h1>
       
       <Stack direction="row" spacing={3} justifyContent="space-between" alignItems="center">
