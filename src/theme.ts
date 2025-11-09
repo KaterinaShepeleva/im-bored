@@ -97,7 +97,7 @@ export const burgundyTheme = createTheme({
           '& .MuiTouchRipple-root': {
             color: SOFT_AMBER,
           },
-        }
+        },
       },
     },
     
@@ -133,7 +133,7 @@ export const burgundyTheme = createTheme({
     MuiSkeleton: {
       styleOverrides: {
         root: {
-          backgroundColor: alpha(SOFT_AMBER, 0.25),
+          backgroundColor: alpha(SOFT_AMBER, 0.15),
         },
       },
     },

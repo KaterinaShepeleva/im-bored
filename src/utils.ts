@@ -25,5 +25,4 @@ export const getAccessibilityLabel = (accessibility: number): AccessibilityValue
   }
   
   return AccessibilityLabel.any;
-}
-
+};

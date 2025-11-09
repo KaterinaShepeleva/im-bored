@@ -1,9 +1,7 @@
 import { makeAutoObservable, reaction } from 'mobx';
 
 import { ActivityStore } from './ActivityStore';
-import {
-  type ApiParams,
-} from 'src/constants.ts';
+import { type ApiParams } from 'src/constants.ts';
 import { ActivityType } from 'constants/activityType.ts';
 import {
   type ParticipantGroup,
@@ -43,7 +41,6 @@ export class FilterStore {
         participants: this.participants,
         isPrecise: this.isPrecise,
         accessibilityGroup: this.accessibilityGroup,
-        accessibilityValue: this.accessibilityValue,
       }),
       () => {
         if (this.shouldSkipFetch) {
@@ -51,8 +48,7 @@ export class FilterStore {
           return;
         }
         
-        // TODO: add debounce for API calls
-        void this.activityStore.fetchActivity(this.buildParams());
+        this.fetchActivity();
       },
     );
   }
@@ -81,18 +77,10 @@ export class FilterStore {
   }
   
   setType(newType: ActivityType) {
-    if (newType === ActivityType.Any) {
-      this.shouldSkipFetch = true;
-    }
-    
     this.type = newType;
   }
   
   setParticipants(group: ParticipantGroup) {
-    if (group.value.length === 0) {
-      this.shouldSkipFetch = true;
-    }
-    
     this.participants = group;
   }
   
@@ -102,10 +90,6 @@ export class FilterStore {
   }
   
   setAccessibilityGroup(group: AccessibilityGroup) {
-    if (group === null) {
-      this.shouldSkipFetch = true;
-    }
-    
     this.accessibilityGroup = group;
   }
   
@@ -113,9 +97,11 @@ export class FilterStore {
     this.accessibilityValue = value;
   }
   
+  fetchActivity() {
+    void this.activityStore.fetchActivity(this.buildParams());
+  }
+  
   resetFilters() {
-    this.shouldSkipFetch = true;
-    
     this.type = ActivityType.Any;
     this.participants = PARTICIPANT_GROUPS[0];
     this.accessibilityGroup = ACCESSIBILITY_GROUPS[0];

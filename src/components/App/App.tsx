@@ -11,6 +11,8 @@ import FilterByAccessibility from 'components/FilterByAccessibility/FilterByAcce
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
 function App() {
+  const { fetchActivity, resetFilters } = filterStore;
+  
   return (
     <Box sx={{ backgroundColor: 'background.default', height: '100%' }}>
       <h1 style={{ fontSize: '32px' }}>
@@ -31,15 +33,15 @@ function App() {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => false}
+            onClick={fetchActivity}
           >
-            Apply filters
+            Get another idea
           </Button>
           
           <Button
             variant="outlined"
             color="primary"
-            onClick={filterStore.resetFilters}
+            onClick={resetFilters}
           >
             Reset all filters
           </Button>

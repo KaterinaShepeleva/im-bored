@@ -8,8 +8,10 @@ import { filterStore } from 'store/root.ts';
 import AccessibilityGroups from './AccessibilityGroups.tsx';
 import AccessibilityValue from './AccessibilityValue.tsx';
 
+// TODO: переименовать везде Accessibility в Difficulty или синоним
 const FilterByAccessibility = observer(() => {
   const { isPrecise, setIsPrecise } = filterStore;
+  // TODO: можно сделать подсказку в тултипе по ховеру на иконку
   const accessibilityDescrEnd = <> <b>0</b> means very simple, <b>1</b> means more challenging.</>
   
   const checkbox = (
