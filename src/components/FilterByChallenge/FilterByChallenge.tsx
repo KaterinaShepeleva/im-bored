@@ -17,7 +17,10 @@ const FilterByChallenge = observer(() => {
   const tooltipSlotProps = {
     tooltip: {
       sx: {
-        maxWidth: 185,
+        maxWidth: {
+          xs: 242,
+          sm: 186,
+        },
       },
     },
     popper: {
@@ -48,6 +51,8 @@ const FilterByChallenge = observer(() => {
           title={tooltip}
           placement="top"
           enterDelay={200}
+          enterTouchDelay={0}
+          leaveTouchDelay={3000}
           slotProps={tooltipSlotProps}
         >
           <Box component="span">
