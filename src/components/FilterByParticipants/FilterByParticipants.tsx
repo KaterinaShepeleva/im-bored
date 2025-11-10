@@ -22,7 +22,7 @@ const FilterByParticipants = observer(() => {
   };
   
   return (
-    <Box sx={{ mt: 2, mb: 2 }}>
+    <Box>
       <Typography variant="body1" sx={{ mb: 0.5 }}>
         Group size
       </Typography>

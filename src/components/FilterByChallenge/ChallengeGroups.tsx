@@ -21,7 +21,13 @@ const ChallengeGroups = observer(() => {
   };
   
   return (
-    <Box sx={{ display: 'flex', gap: 1, pt: 1, pb: 1 }}>
+    <Box sx={{
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: 1,
+      pt: 1,
+      pb: 1,
+    }}>
       {CHALLENGE_GROUPS.map((group) => (
         <Chip
           key={group.id}

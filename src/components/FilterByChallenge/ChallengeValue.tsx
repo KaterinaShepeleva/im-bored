@@ -25,7 +25,10 @@ const ChallengeValue = observer(() => {
   };
   
   return (
-    <Box sx={{ width: 300, ml: '10px', pb: '2px' }}>
+    <Box
+      width={{ xs: '100%', sm: 300 }}
+      sx={{ pb: '2px', pl: 1.25, pr: 1.25 }}
+    >
       <Slider
         min={MIN}
         max={MAX}

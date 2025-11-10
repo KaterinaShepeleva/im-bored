@@ -1,4 +1,5 @@
-import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
@@ -14,42 +15,58 @@ function App() {
   const { fetchActivity, resetFilters } = filterStore;
   
   return (
-    <Box sx={{ backgroundColor: 'background.default', height: '100%' }}>
-      <h1 style={{ fontSize: '32px' }}>
+    <Container maxWidth="sm" sx={{ backgroundColor: 'background.default', height: '100%', pt: 2, pb: 2 }}>
+      <h1 style={{ fontSize: '36px', margin: 0, padding: '32px 0' }}>
         <AutoAwesomeIcon fontSize="inherit" color="secondary" sx={{ verticalAlign: 'top', mr: 1.5 }}/>
         <span>If I'm Bored</span>
       </h1>
       
-      <Stack direction="row" spacing={3} justifyContent="space-between" alignItems="center">
-        <FilterByType/>
+      <Grid
+        container
+        rowSpacing={2}
+        columnSpacing={3}
+        sx={{ alignItems: 'center' }}
+      >
+        <Grid size={{ xs: 12, sm: 5 }}>
+          <FilterByType/>
+        </Grid>
         
-        <FilterByParticipants/>
-      </Stack>
-      
-      <Stack direction="row" spacing={2} justifyContent="space-between" mt={2}>
-        <FilterByChallenge/>
+        <Grid size={{ xs: 12, sm: 7 }}>
+          <FilterByParticipants/>
+        </Grid>
         
-        <Stack direction="column" spacing={1.5} flexShrink={0} sx={{ pt: 2 }}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={fetchActivity}
+        <Grid size={{ xs: 12, sm: 8 }}>
+          <FilterByChallenge/>
+        </Grid>
+        
+        <Grid size={{ xs: 12, sm: 4 }}>
+          <Stack
+            direction={{ xs: 'row', sm: 'column' }}
+            spacing={{ xs: 2, sm: 1.5 }}
+            justifyContent={{ xs: 'start', sm: 'center' }}
+            flexShrink={0}
           >
-            Get another idea
-          </Button>
-          
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={resetFilters}
-          >
-            Reset all filters
-          </Button>
-        </Stack>
-      </Stack>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={fetchActivity}
+            >
+              Get another idea
+            </Button>
+            
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={resetFilters}
+            >
+              Reset all filters
+            </Button>
+          </Stack>
+        </Grid>
+      </Grid>
       
       <ActivityCard/>
-    </Box>
+    </Container>
   );
 }
 
