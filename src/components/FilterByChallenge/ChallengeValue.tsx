@@ -9,11 +9,11 @@ const MIN = 0;
 const MAX = 1;
 const STEP = 0.05;
 
-const AccessibilityValue = observer(() => {
-  const { accessibilityValue, setAccessibilityValue } = filterStore;
+const ChallengeValue = observer(() => {
+  const { challengeValue, setChallengeValue } = filterStore;
   
   const handleChange = (_: Event, newValue: number) => {
-    setAccessibilityValue(newValue);
+    setChallengeValue(newValue);
   };
   
   const tipStyle = {
@@ -31,7 +31,7 @@ const AccessibilityValue = observer(() => {
         max={MAX}
         marks={true}
         step={STEP}
-        value={accessibilityValue}
+        value={challengeValue}
         onChange={handleChange}
         valueLabelDisplay="auto"
       />
@@ -39,14 +39,14 @@ const AccessibilityValue = observer(() => {
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '-10px' }}>
         <Typography
           variant="body2"
-          onClick={() => setAccessibilityValue(MIN)}
+          onClick={() => setChallengeValue(MIN)}
           sx={{ ...tipStyle, ml: -1 }}
         >
           {MIN} – easy
         </Typography>
         <Typography
           variant="body2"
-          onClick={() => setAccessibilityValue(MAX)}
+          onClick={() => setChallengeValue(MAX)}
           sx={{ ...tipStyle, mr: -1 }}
         >
           hard – {MAX}
@@ -56,4 +56,4 @@ const AccessibilityValue = observer(() => {
   );
 });
 
-export default AccessibilityValue;
+export default ChallengeValue;

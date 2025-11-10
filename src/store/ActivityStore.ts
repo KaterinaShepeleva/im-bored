@@ -5,7 +5,7 @@ import {
   API_URL,
   type Activity,
   type ApiParams,
-} from 'src/constants.ts';
+} from 'constants/common.ts';
 import { ActivityType } from 'constants/activityType.ts';
 
 type ActivityError = { error: string };

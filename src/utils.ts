@@ -1,28 +1,28 @@
-import { AccessibilityLabel } from 'constants/accessibilityValues.ts';
+import { ChallengeLabel } from 'constants/challenge.ts';
 
-type AccessibilityKeys = keyof typeof AccessibilityLabel;
-type AccessibilityValues = typeof AccessibilityLabel[AccessibilityKeys]
+type ChallengeLabelKeys = keyof typeof ChallengeLabel;
+type ChallengeLabelValues = typeof ChallengeLabel[ChallengeLabelKeys]
 
-export const getAccessibilityLabel = (accessibility: number): AccessibilityValues => {
-  if (accessibility == null || accessibility < 0 || accessibility > 1) {
-    return AccessibilityLabel.any;
+export const getChallengeLabel = (challenge: number): ChallengeLabelValues => {
+  if (challenge == null || challenge < 0 || challenge > 1) {
+    return ChallengeLabel.any;
   }
   
-  if (accessibility >= 0 && accessibility <= 0.3) {
-    return AccessibilityLabel.easy;
+  if (challenge >= 0 && challenge <= 0.3) {
+    return ChallengeLabel.easy;
   }
   
-  if (accessibility >= 0.4 && accessibility <= 0.6) {
-    return AccessibilityLabel.medium;
+  if (challenge >= 0.4 && challenge <= 0.6) {
+    return ChallengeLabel.medium;
   }
   
-  if (accessibility >= 0.7 && accessibility <= 0.8) {
-    return AccessibilityLabel.challenging;
+  if (challenge >= 0.7 && challenge <= 0.8) {
+    return ChallengeLabel.challenging;
   }
   
-  if (accessibility >= 0.9 && accessibility <= 1) {
-    return AccessibilityLabel.hard;
+  if (challenge >= 0.9 && challenge <= 1) {
+    return ChallengeLabel.hard;
   }
   
-  return AccessibilityLabel.any;
+  return ChallengeLabel.any;
 };

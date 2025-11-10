@@ -31,6 +31,5 @@ export type Activity = {
   accessibility: number,
 }
 
-export type ApiParams = Record<string, string | number | GroupValue>;
-
-export type GroupValue = number[] | null;
+type ApiParamValue = string | number | number[] | null;
+export type ApiParams = Record<string, ApiParamValue>;

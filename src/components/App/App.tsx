@@ -7,7 +7,7 @@ import { filterStore } from 'store/root.ts';
 import ActivityCard from 'components/ActivityCard/ActivityCard.tsx';
 import FilterByType from 'components/FilterByType/FilterByType.tsx';
 import FilterByParticipants from 'components/FilterByParticipants/FilterByParticipants.tsx';
-import FilterByAccessibility from 'components/FilterByAccessibility/FilterByAccessibility.tsx';
+import FilterByChallenge from 'components/FilterByChallenge/FilterByChallenge.tsx';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
       </Stack>
       
       <Stack direction="row" spacing={2} justifyContent="space-between" mt={2}>
-        <FilterByAccessibility/>
+        <FilterByChallenge/>
         
         <Stack direction="column" spacing={1.5} flexShrink={0} sx={{ pt: 2 }}>
           <Button

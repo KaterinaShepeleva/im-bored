@@ -8,11 +8,10 @@ import Stack from '@mui/material/Stack';
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 
 import { filterStore } from 'store/root.ts';
-import AccessibilityGroups from './AccessibilityGroups.tsx';
-import AccessibilityValue from './AccessibilityValue.tsx';
+import ChallengeGroups from './ChallengeGroups.tsx';
+import ChallengeValue from './ChallengeValue.tsx';
 
-// TODO: переименовать везде Accessibility в Difficulty или синоним
-const FilterByAccessibility = observer(() => {
+const FilterByChallenge = observer(() => {
   const { isPrecise, setIsPrecise } = filterStore;
   const tooltip = 'Higher value means this activity requires more effort or focus';
   const tooltipSlotProps = {
@@ -68,8 +67,8 @@ const FilterByAccessibility = observer(() => {
       
       {
         isPrecise
-          ? <AccessibilityValue/>
-          : <AccessibilityGroups/>
+          ? <ChallengeValue/>
+          : <ChallengeGroups/>
       }
       
       <Box>
@@ -82,4 +81,4 @@ const FilterByAccessibility = observer(() => {
   );
 });
 
-export default FilterByAccessibility;
+export default FilterByChallenge;
