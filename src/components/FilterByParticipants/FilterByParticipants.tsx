@@ -27,7 +27,7 @@ const FilterByParticipants = observer(() => {
         Group size
       </Typography>
       
-      <Box sx={{ display: 'flex', gap: 1 }}>
+      <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
         {PARTICIPANT_GROUPS.map((group) => (
           <Chip
             key={group.id}

@@ -15,7 +15,15 @@ function App() {
   const { fetchActivity, resetFilters } = filterStore;
   
   return (
-    <Container maxWidth="sm" sx={{ backgroundColor: 'background.default', height: '100%', pt: 2, pb: 2 }}>
+    <Container
+      maxWidth="sm"
+      sx={{
+        backgroundColor: 'background.default',
+        height: '100%',
+        pt: { xs: 0, sm: 2 },
+        pb: 2,
+      }}
+    >
       <h1 style={{ fontSize: '36px', margin: 0, padding: '32px 0' }}>
         <AutoAwesomeIcon fontSize="inherit" color="secondary" sx={{ verticalAlign: 'top', mr: 1.5 }}/>
         <span>If I'm Bored</span>
@@ -42,7 +50,7 @@ function App() {
         <Grid size={{ xs: 12, sm: 4 }}>
           <Stack
             direction={{ xs: 'row', sm: 'column' }}
-            spacing={{ xs: 2, sm: 1.5 }}
+            spacing={1.5}
             justifyContent={{ xs: 'start', sm: 'center' }}
             flexShrink={0}
           >
@@ -59,7 +67,7 @@ function App() {
               color="primary"
               onClick={resetFilters}
             >
-              Reset all filters
+              Reset all&nbsp;filters
             </Button>
           </Stack>
         </Grid>
