@@ -3,6 +3,9 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import Tooltip from '@mui/material/Tooltip';
+import Stack from '@mui/material/Stack';
+import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 
 import { filterStore } from 'store/root.ts';
 import AccessibilityGroups from './AccessibilityGroups.tsx';
@@ -11,8 +14,24 @@ import AccessibilityValue from './AccessibilityValue.tsx';
 // TODO: переименовать везде Accessibility в Difficulty или синоним
 const FilterByAccessibility = observer(() => {
   const { isPrecise, setIsPrecise } = filterStore;
-  // TODO: можно сделать подсказку в тултипе по ховеру на иконку
-  const accessibilityDescrEnd = <> <b>0</b> means very simple, <b>1</b> means more challenging.</>
+  const tooltip = 'Higher value means this activity requires more effort or focus';
+  const tooltipSlotProps = {
+    tooltip: {
+      sx: {
+        maxWidth: 185,
+      },
+    },
+    popper: {
+      modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset: [0, -8],
+          },
+        },
+      ],
+    },
+  };
   
   const checkbox = (
     <Checkbox
@@ -23,14 +42,29 @@ const FilterByAccessibility = observer(() => {
   
   return (
     <Box>
-      <Typography variant="body1">
-        Accessibility
-      </Typography>
-      
-      <Typography variant="caption" sx={{ mb: 1.5, display: 'block', color: 'text.secondary', lineHeight: 1.5 }}>
-        Accessibility shows how easy this activity is to do.
-        {isPrecise && accessibilityDescrEnd}
-      </Typography>
+      <Stack direction="row" spacing={0}>
+        <Typography variant="body1">Challenge level</Typography>
+        
+        <Tooltip
+          title={tooltip}
+          placement="top"
+          enterDelay={200}
+          slotProps={tooltipSlotProps}
+        >
+          <Box component="span">
+            <InfoOutlineIcon
+              sx={{
+                fontSize: 'inherit',
+                verticalAlign: 'middle',
+                color: 'text.secondary',
+                cursor: 'pointer',
+                p: '2px 8px 4px',
+                boxSizing: 'content-box',
+              }}
+            />
+          </Box>
+        </Tooltip>
+      </Stack>
       
       {
         isPrecise

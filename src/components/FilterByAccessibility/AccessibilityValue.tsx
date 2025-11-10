@@ -16,8 +16,16 @@ const AccessibilityValue = observer(() => {
     setAccessibilityValue(newValue);
   };
   
+  const tipStyle = {
+    cursor: 'pointer',
+    pl: 1,
+    pr: 1,
+    color: 'text.secondary',
+    userSelect: 'none',
+  };
+  
   return (
-    <Box sx={{ width: 300, ml: '10px' }}>
+    <Box sx={{ width: 300, ml: '10px', pb: '2px' }}>
       <Slider
         min={MIN}
         max={MAX}
@@ -32,16 +40,16 @@ const AccessibilityValue = observer(() => {
         <Typography
           variant="body2"
           onClick={() => setAccessibilityValue(MIN)}
-          sx={{ cursor: 'pointer', pl: 1, pr: 1, ml: -1, color: 'text.secondary' }}
+          sx={{ ...tipStyle, ml: -1 }}
         >
-          {MIN} min
+          {MIN} – easy
         </Typography>
         <Typography
           variant="body2"
           onClick={() => setAccessibilityValue(MAX)}
-          sx={{ cursor: 'pointer', pl: 1, pr: 1, mr: -1, color: 'text.secondary' }}
+          sx={{ ...tipStyle, mr: -1 }}
         >
-          max {MAX}
+          hard – {MAX}
         </Typography>
       </Box>
     </Box>

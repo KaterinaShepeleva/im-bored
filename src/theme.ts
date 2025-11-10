@@ -125,7 +125,7 @@ export const burgundyTheme = createTheme({
           },
         },
         valueLabel: {
-          background: SOFT_AMBER,
+          backgroundColor: alpha(SOFT_AMBER, 0.95),
         },
       },
     },
@@ -134,6 +134,14 @@ export const burgundyTheme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: alpha(SOFT_AMBER, 0.15),
+        },
+      },
+    },
+    
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: alpha(SOFT_AMBER, 0.95),
         },
       },
     },
