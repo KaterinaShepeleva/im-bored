@@ -34,7 +34,6 @@ export class ActivityStore {
     try {
       const response = await axios.get<ActivityResponse>(API_URL, { params });
       const { data } = response;
-      console.log('response data', data);
       
       if ('error' in data) {
         runInAction(() => {
