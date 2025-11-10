@@ -1,4 +1,5 @@
 import { makeAutoObservable, reaction } from 'mobx';
+import { debounce } from '@mui/material/utils';
 
 import { ActivityStore } from './ActivityStore';
 import { type ApiParams } from 'src/constants.ts';
@@ -32,8 +33,14 @@ export class FilterStore {
   
   constructor(activityStore: ActivityStore) {
     this.activityStore = activityStore;
+    const debouncedFetch = debounce(this.fetchActivity.bind(this), 300);
     
     makeAutoObservable(this, {}, { autoBind: true });
+    
+    reaction(
+      () => ({ accessibilityValue: this.accessibilityValue }),
+      debouncedFetch,
+    );
     
     reaction(
       () => ({
