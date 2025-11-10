@@ -15,19 +15,19 @@ const ActivityLoading = () => {
           m: '0 auto',
         }}
       >
-        <Typography variant="h6" sx={{ mb: 2, lineHeight: 1.4 }}>
+        <Typography variant="h6" sx={{ width: 250, mb: 2, lineHeight: 1.4 }}>
           <Skeleton/>
         </Typography>
         
-        <Typography variant="body1" sx={{ width: 250 }}>
+        <Typography variant="body1" sx={{ width: 180 }}>
           <Skeleton/>
         </Typography>
         
-        <Typography variant="body1" sx={{ width: 250 }}>
+        <Typography variant="body1" sx={{ width: 180 }}>
           <Skeleton/>
         </Typography>
         
-        <Typography variant="body1" sx={{ width: 250 }}>
+        <Typography variant="body1" sx={{ width: 180 }}>
           <Skeleton/>
         </Typography>
       </Card>

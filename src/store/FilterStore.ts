@@ -1,78 +1,75 @@
 import { makeAutoObservable, reaction } from 'mobx';
+import { debounce } from '@mui/material/utils';
 
 import { ActivityStore } from './ActivityStore';
-import {
-  type ApiParams,
-} from 'src/constants.ts';
+import { type ApiParams } from 'constants/common.ts';
 import { ActivityType } from 'constants/activityType.ts';
 import {
   type ParticipantGroup,
   PARTICIPANT_GROUPS,
 } from 'constants/participants.ts';
 import {
-  type AccessibilityGroup,
-  ACCESSIBILITY_GROUPS,
-} from 'constants/accessibilityValues.ts';
+  type ChallengeGroup,
+  CHALLENGE_GROUPS,
+} from 'constants/challenge.ts';
 
-type AccessibilityMode = 'group' | 'precise';
-type AccessibilityParam =
+type ChallengeLevelMode = 'group' | 'precise';
+type ChallengeLevelParam =
   { minaccessibility: number, maxaccessibility: number }
   | { accessibility: number };
 
 export class FilterStore {
   // utility
   private activityStore: ActivityStore;
-  private accessibilityMode: AccessibilityMode = 'group';
-  shouldSkipFetch = false;
+  private challengeLevelMode: ChallengeLevelMode = 'group';
   
   // UI filters
   type: ActivityType = ActivityType.Any;
   participants: ParticipantGroup = PARTICIPANT_GROUPS[0];
-  accessibilityGroup: AccessibilityGroup = ACCESSIBILITY_GROUPS[0];
-  accessibilityValue: number = 0;
+  challengeGroup: ChallengeGroup = CHALLENGE_GROUPS[0];
+  challengeValue: number = 0;
   isPrecise: boolean = false;
   
   constructor(activityStore: ActivityStore) {
     this.activityStore = activityStore;
+    const debouncedFetch = debounce(this.fetchActivity.bind(this), 300);
     
     makeAutoObservable(this, {}, { autoBind: true });
+    
+    reaction(
+      () => ({ challengeValue: this.challengeValue }),
+      debouncedFetch,
+    );
     
     reaction(
       () => ({
         type: this.type,
         participants: this.participants,
         isPrecise: this.isPrecise,
-        accessibilityGroup: this.accessibilityGroup,
-        accessibilityValue: this.accessibilityValue,
+        challengeGroup: this.challengeGroup,
       }),
       () => {
-        if (this.shouldSkipFetch) {
-          this.shouldSkipFetch = false;
-          return;
-        }
-        
-        // TODO: add debounce for API calls
-        void this.activityStore.fetchActivity(this.buildParams());
+        this.fetchActivity();
       },
     );
   }
   
   buildParams() {
-    let accessParam: AccessibilityParam;
+    let accessibilityParam: ChallengeLevelParam;
     
-    if (this.accessibilityMode === 'group') {
-      accessParam = {
-        minaccessibility: this.accessibilityGroup.value[0] ?? 0,
-        maxaccessibility: this.accessibilityGroup.value[1] ?? 1,
+    if (this.challengeLevelMode === 'group') {
+      accessibilityParam = {
+        minaccessibility: this.challengeGroup.value[0] ?? 0,
+        maxaccessibility: this.challengeGroup.value[1] ?? 1,
       };
     } else {
-      accessParam = {
-        accessibility: this.accessibilityValue,
+      accessibilityParam = {
+        accessibility: this.challengeValue,
       };
     }
     
     const params: ApiParams = {
-      ...accessParam,
+      ...accessibilityParam,
       type: this.type === ActivityType.Any ? null : this.type,
       participants: this.participants.value.length > 0 ? this.participants.value : null,
     };
@@ -81,45 +78,35 @@ export class FilterStore {
   }
   
   setType(newType: ActivityType) {
-    if (newType === ActivityType.Any) {
-      this.shouldSkipFetch = true;
-    }
-    
     this.type = newType;
   }
   
   setParticipants(group: ParticipantGroup) {
-    if (group.value.length === 0) {
-      this.shouldSkipFetch = true;
-    }
-    
     this.participants = group;
   }
   
   setIsPrecise(isPrecise: boolean) {
-    this.accessibilityMode = isPrecise ? 'precise' : 'group';
+    this.challengeLevelMode = isPrecise ? 'precise' : 'group';
     this.isPrecise = isPrecise;
   }
   
-  setAccessibilityGroup(group: AccessibilityGroup) {
-    if (group === null) {
-      this.shouldSkipFetch = true;
-    }
-    
-    this.accessibilityGroup = group;
+  setChallengeGroup(group: ChallengeGroup) {
+    this.challengeGroup = group;
   }
   
-  setAccessibilityValue(value: number) {
-    this.accessibilityValue = value;
+  setChallengeValue(value: number) {
+    this.challengeValue = value;
+  }
+  
+  fetchActivity() {
+    void this.activityStore.fetchActivity(this.buildParams());
   }
   
   resetFilters() {
-    this.shouldSkipFetch = true;
-    
     this.type = ActivityType.Any;
     this.participants = PARTICIPANT_GROUPS[0];
-    this.accessibilityGroup = ACCESSIBILITY_GROUPS[0];
-    this.accessibilityValue = 0;
+    this.challengeGroup = CHALLENGE_GROUPS[0];
+    this.challengeValue = 0;
     this.isPrecise = false;
   }
 }

@@ -1,4 +1,4 @@
-export const AccessibilityLabel = {
+export const ChallengeLabel = {
   any: 'Any',
   easy: 'Easy',
   medium: 'Medium',
@@ -6,36 +6,36 @@ export const AccessibilityLabel = {
   hard: 'Hard',
 }
 
-export type AccessibilityGroup = {
+export type ChallengeGroup = {
   id: string;
   label: string;
   value: number[];
 };
 
-export const ACCESSIBILITY_GROUPS: AccessibilityGroup[] = [
+export const CHALLENGE_GROUPS: ChallengeGroup[] = [
   {
     id: 'any',
-    label: AccessibilityLabel.any,
+    label: ChallengeLabel.any,
     value: [],
   },
   {
     id: 'easy',
-    label: AccessibilityLabel.easy,
+    label: ChallengeLabel.easy,
     value: [0, 0.3],
   },
   {
     id: 'medium',
-    label: AccessibilityLabel.medium,
+    label: ChallengeLabel.medium,
     value: [0.4, 0.6],
   },
   {
     id: 'challenge',
-    label: AccessibilityLabel.challenging,
+    label: ChallengeLabel.challenging,
     value: [0.7, 0.8],
   },
   {
     id: 'hard',
-    label: AccessibilityLabel.hard,
+    label: ChallengeLabel.hard,
     value: [0.9, 1],
   },
 ]

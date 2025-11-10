@@ -3,30 +3,30 @@ import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 
 import {
-  type AccessibilityGroup,
-  ACCESSIBILITY_GROUPS,
-} from 'constants/accessibilityValues.ts';
+  type ChallengeGroup,
+  CHALLENGE_GROUPS,
+} from 'constants/challenge.ts';
 import { filterStore } from 'store/root.ts';
 
-const AccessibilityGroups = observer(() => {
-  const { accessibilityGroup, setAccessibilityGroup } = filterStore;
+const ChallengeGroups = observer(() => {
+  const { challengeGroup, setChallengeGroup } = filterStore;
   
-  const handleClick = (newGroup: AccessibilityGroup) => {
+  const handleClick = (newGroup: ChallengeGroup) => {
     // prevent Chip from deselecting
-    if (newGroup.id == accessibilityGroup.id) {
+    if (newGroup.id == challengeGroup.id) {
       return;
     }
     
-    setAccessibilityGroup(newGroup);
+    setChallengeGroup(newGroup);
   };
   
   return (
     <Box sx={{ display: 'flex', gap: 1, pt: 1, pb: 1 }}>
-      {ACCESSIBILITY_GROUPS.map((group) => (
+      {CHALLENGE_GROUPS.map((group) => (
         <Chip
           key={group.id}
           color="primary"
-          variant={group.id === accessibilityGroup.id ? 'filled' : 'outlined'}
+          variant={group.id === challengeGroup.id ? 'filled' : 'outlined'}
           label={group.label}
           onClick={() => handleClick(group)}
           sx={{ minWidth: '60px' }}
@@ -36,4 +36,4 @@ const AccessibilityGroups = observer(() => {
   );
 });
 
-export default AccessibilityGroups;
+export default ChallengeGroups;

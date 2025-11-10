@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 
 import { activityStore } from 'store/root.ts';
 import { TYPE_OPTIONS } from 'constants/activityType.ts';
-import { getAccessibilityLabel } from 'src/utils.ts';
+import { getChallengeLabel } from 'src/utils.ts';
 import ActivityNotFound from './ActivityNotFound.tsx';
 import ActivityLoading from 'components/ActivityCard/ActivityLoading.tsx';
 
@@ -27,7 +27,7 @@ const ActivityCard = observer(() => {
     isLoading,
     activityError,
   } = activityStore;
-  const accessibilityDescr = `${accessibility} (${getAccessibilityLabel(accessibility)})`;
+  const challengeDescription = `${accessibility} (${getChallengeLabel(accessibility)})`;
   
   if (isLoading) {
     return <ActivityLoading/>;
@@ -72,7 +72,7 @@ const ActivityCard = observer(() => {
         <Stack direction="row" spacing={1} alignItems="center">
           <SpeedIcon color="secondary" sx={{ fontSize: 18 }}/>
           <Typography variant="body1" color="text.secondary">
-            Accessibility: {accessibilityDescr}
+            Challenge level: {challengeDescription}
           </Typography>
         </Stack>
       </Card>

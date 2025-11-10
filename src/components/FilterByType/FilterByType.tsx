@@ -38,7 +38,7 @@ const FilterByType = observer(() => {
               key={item.id}
               value={item.value}
             >
-              {item.value.length === 0 && <i>None</i>}
+              {item.value.length === 0 && <i>{item.name}</i>}
               {item.value.length > 0 && item.name}
             </MenuItem>
           ))}

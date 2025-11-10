@@ -9,21 +9,29 @@ const MIN = 0;
 const MAX = 1;
 const STEP = 0.05;
 
-const AccessibilityValue = observer(() => {
-  const { accessibilityValue, setAccessibilityValue } = filterStore;
+const ChallengeValue = observer(() => {
+  const { challengeValue, setChallengeValue } = filterStore;
   
   const handleChange = (_: Event, newValue: number) => {
-    setAccessibilityValue(newValue);
+    setChallengeValue(newValue);
+  };
+  
+  const tipStyle = {
+    cursor: 'pointer',
+    pl: 1,
+    pr: 1,
+    color: 'text.secondary',
+    userSelect: 'none',
   };
   
   return (
-    <Box sx={{ width: 300, ml: '10px' }}>
+    <Box sx={{ width: 300, ml: '10px', pb: '2px' }}>
       <Slider
         min={MIN}
         max={MAX}
         marks={true}
         step={STEP}
-        value={accessibilityValue}
+        value={challengeValue}
         onChange={handleChange}
         valueLabelDisplay="auto"
       />
@@ -31,21 +39,21 @@ const AccessibilityValue = observer(() => {
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '-10px' }}>
         <Typography
           variant="body2"
-          onClick={() => setAccessibilityValue(MIN)}
-          sx={{ cursor: 'pointer', pl: 1, pr: 1, ml: -1, color: 'text.secondary' }}
+          onClick={() => setChallengeValue(MIN)}
+          sx={{ ...tipStyle, ml: -1 }}
         >
-          {MIN} min
+          {MIN} – easy
         </Typography>
         <Typography
           variant="body2"
-          onClick={() => setAccessibilityValue(MAX)}
-          sx={{ cursor: 'pointer', pl: 1, pr: 1, mr: -1, color: 'text.secondary' }}
+          onClick={() => setChallengeValue(MAX)}
+          sx={{ ...tipStyle, mr: -1 }}
         >
-          max {MAX}
+          hard – {MAX}
         </Typography>
       </Box>
     </Box>
   );
 });
 
-export default AccessibilityValue;
+export default ChallengeValue;

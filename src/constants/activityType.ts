@@ -1,5 +1,5 @@
 export enum ActivityType {
-  Any = '',
+  Any = 'any',
   Education = 'education',
   Recreational = 'recreational',
   Social = 'social',
@@ -20,7 +20,7 @@ export type ActivityTypeOption = {
 export const TYPE_OPTIONS: ActivityTypeOption[] = [
   {
     id: 'any',
-    name: '',
+    name: 'Any',
     value: ActivityType.Any,
   },
   {
